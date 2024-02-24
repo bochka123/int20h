@@ -1,3 +1,6 @@
+using FluentValidation.AspNetCore;
+using int20h.WebAPI.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.RegisterCustomServices(builder.Configuration);
+builder.Services.AddCustomAutoMapperProfiles();
+builder.Services.AddFluentValidation();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
