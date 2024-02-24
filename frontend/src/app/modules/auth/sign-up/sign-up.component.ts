@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
 import { matchpassword } from '@core/validators/matchpassword.validator';
 import { emailFormatRegex, mobilePhoneFormatRegex, nameFormatRegex, passFormatRegex } from '@core/utils/regex.util';
-import { ModalComponent } from '@shared/components/modal/modal.component';
 import { IUser } from '../../../models/IUser';
 import { Router } from '@angular/router';
 
@@ -63,7 +61,7 @@ export class SignUpComponent {
 
     constructor(
         private authService: AuthService,
-        private dialog: MatDialog,
+        // private dialog: MatDialog,
         private router: Router,
     ) {}
 
@@ -123,12 +121,12 @@ export class SignUpComponent {
         this.user.password = this.password.value;
         this.authService.signUp(this.user).subscribe(
             (result) => {
-                this.dialog.open(ModalComponent, {
-                    data: {
-                        header: 'Success',
-                        content: (result as any).message,
-                    },
-                });
+                // this.dialog.open(ModalComponent, {
+                //     data: {
+                //         header: 'Success',
+                //         content: (result as any).message,
+                //     },
+                // });
                 const token = (result as any).value.accessToken;
                 const user = (result as any).value;
                 localStorage.setItem('accessToken', token);
@@ -136,12 +134,12 @@ export class SignUpComponent {
                 this.router.navigate(['/']);
             },
             (error) => {
-                this.dialog.open(ModalComponent, {
-                    data: {
-                        header: 'Error',
-                        content: (error.error as any).message,
-                    },
-                });
+                // this.dialog.open(ModalComponent, {
+                //     data: {
+                //         header: 'Error',
+                //         content: (error.error as any).message,
+                //     },
+                // });
             },
         );
     }

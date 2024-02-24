@@ -12,12 +12,6 @@ const routes: Routes = [
         pathMatch: 'prefix',
         loadChildren: () => import('./modules/main/main.module').then((m) => m.MainModule),
     },
-    {
-        path: 'profile',
-        pathMatch: 'prefix',
-        loadChildren: () => import('./modules/profile/profile.module').then((m) => m.ProfileModule),
-        canActivate: [AuthGuard],
-    },
     //   {
     //     path: '**',
     //     component: NotFoundComponent,

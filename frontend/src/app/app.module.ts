@@ -8,7 +8,6 @@ import { SharedModule } from '@shared/shared.module';
 import { CoreModule } from '@core/core.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { MainModule } from '@modules/main/main.module';
-import { ProfileModule } from '@modules/profile/profile.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -20,7 +19,6 @@ import { ProfileModule } from '@modules/profile/profile.module';
         CoreModule,
         AuthModule,
         MainModule,
-        ProfileModule,
     ],
     providers: [],
     bootstrap: [AppComponent],
