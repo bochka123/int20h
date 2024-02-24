@@ -1,7 +1,7 @@
-﻿using int20h.DAL.Context;
+﻿using Int20h.DAL.Context;
 using AutoMapper;
 
-namespace int20h.BLL.Services.Abstract;
+namespace Int20h.BLL.Services.Abstract;
 
 public abstract class BaseService
 {

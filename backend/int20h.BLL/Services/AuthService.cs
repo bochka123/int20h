@@ -8,15 +8,15 @@ using Microsoft.IdentityModel.Tokens;
 
 using AutoMapper;
 
-using int20h.BLL.Interfaces;
-using int20h.BLL.Services.Abstract;
-using int20h.Common.Dtos.User;
-using int20h.Common.Helpers;
-using int20h.Common.Response;
-using int20h.DAL.Context;
-using int20h.DAL.Entities;
+using Int20h.BLL.Interfaces;
+using Int20h.BLL.Services.Abstract;
+using Int20h.Common.Dtos.User;
+using Int20h.Common.Helpers;
+using Int20h.Common.Response;
+using Int20h.DAL.Context;
+using Int20h.DAL.Entities;
 
-namespace int20h.BLL.Services;
+namespace Int20h.BLL.Services;
 
 public class AuthService : BaseService, IAuthService
 {

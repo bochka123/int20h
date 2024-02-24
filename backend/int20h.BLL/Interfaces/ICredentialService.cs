@@ -1,4 +1,4 @@
-﻿namespace int20h.BLL.Interfaces
+﻿namespace Int20h.BLL.Interfaces
 {
     public interface ICredentialService
     {

@@ -1,8 +1,8 @@
-﻿using int20h.DAL.Entities;
+﻿using Int20h.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace int20h.DAL.Context.ModelConfigurations
+namespace Int20h.DAL.Context.ModelConfigurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

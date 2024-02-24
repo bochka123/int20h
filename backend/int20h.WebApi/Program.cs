@@ -1,5 +1,7 @@
-using FluentValidation.AspNetCore;
-using int20h.WebAPI.Extensions;
+//using FluentValidation.AspNetCore;
+using Int20h.DAL.Interfaces;
+using Int20h.WebApi.Extensions;
+using Int20h.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,5 +33,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.SeedDatabase();
 
 app.Run();

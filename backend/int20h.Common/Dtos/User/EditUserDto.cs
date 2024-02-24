@@ -1,4 +1,4 @@
-﻿namespace int20h.Common.Dtos.User
+﻿namespace Int20h.Common.Dtos.User
 {
     public class EditUserDto
     {

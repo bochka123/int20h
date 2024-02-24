@@ -1,7 +1,7 @@
-﻿using int20h.Common.Dtos.User;
-using int20h.Common.Response;
+﻿using Int20h.Common.Dtos.User;
+using Int20h.Common.Response;
 
-namespace int20h.BLL.Interfaces;
+namespace Int20h.BLL.Interfaces;
 
 public interface IAuthService
 {

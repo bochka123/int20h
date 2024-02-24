@@ -1,4 +1,4 @@
-﻿namespace int20h.DAL.Entities.Abstract;
+﻿namespace Int20h.DAL.Entities.Abstract;
 
 public class BaseEntity
 {

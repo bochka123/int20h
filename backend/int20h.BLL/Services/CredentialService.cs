@@ -1,9 +1,9 @@
-﻿using int20h.BLL.Interfaces;
-using int20h.DAL.Context;
+﻿using Int20h.BLL.Interfaces;
+using Int20h.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
-namespace int20h.BLL.Services
+namespace Int20h.BLL.Services
 {
     public class CredentialService(ApplicationDbContext context): ICredentialService
     {

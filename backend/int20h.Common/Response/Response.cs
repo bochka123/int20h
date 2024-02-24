@@ -1,4 +1,4 @@
-﻿namespace int20h.Common.Response;
+﻿namespace Int20h.Common.Response;
 
 public class Response<T>
 {

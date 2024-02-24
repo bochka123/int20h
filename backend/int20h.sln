@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "int20h.WebApi", "int20h.WebApi\int20h.WebApi.csproj", "{D29A7E59-C44A-49A4-97C3-5369217BB32E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.WebApi", "Int20h.WebApi\Int20h.WebApi.csproj", "{D29A7E59-C44A-49A4-97C3-5369217BB32E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "int20h.BLL", "int20h.BLL\int20h.BLL.csproj", "{A1011DFD-72C6-4303-83F0-81E2CEF4C930}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.BLL", "Int20h.BLL\Int20h.BLL.csproj", "{A1011DFD-72C6-4303-83F0-81E2CEF4C930}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "int20h.DAL", "int20h.DAL\int20h.DAL.csproj", "{ACBA2725-2A54-4B31-A110-175542F44192}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.DAL", "Int20h.DAL\Int20h.DAL.csproj", "{ACBA2725-2A54-4B31-A110-175542F44192}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "int20h.Common", "int20h.Common\int20h.Common.csproj", "{16BABD6E-ECE0-4551-BCD3-799EB41C640E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.Common", "Int20h.Common\Int20h.Common.csproj", "{16BABD6E-ECE0-4551-BCD3-799EB41C640E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

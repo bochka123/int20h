@@ -1,6 +1,6 @@
-﻿using int20h.DAL.Entities.Abstract;
+﻿using Int20h.DAL.Entities.Abstract;
 
-namespace int20h.DAL.Entities;
+namespace Int20h.DAL.Entities;
 
 public class User : BaseEntity
 {

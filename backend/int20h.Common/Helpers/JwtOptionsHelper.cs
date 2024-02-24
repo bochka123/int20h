@@ -1,4 +1,4 @@
-﻿namespace int20h.Common.Helpers;
+﻿namespace Int20h.Common.Helpers;
 
 public class JwtOptionsHelper
 {

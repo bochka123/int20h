@@ -1,8 +1,8 @@
-﻿using int20h.DAL.Context.ModelConfigurations;
-using int20h.DAL.Entities;
+﻿using Int20h.DAL.Context.ModelConfigurations;
+using Int20h.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace int20h.DAL.Context;
+namespace Int20h.DAL.Context;
 
 public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
 {

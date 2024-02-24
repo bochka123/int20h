@@ -1,8 +1,8 @@
-﻿using int20h.Common.Dtos.User;
-using int20h.DAL.Entities;
+﻿using Int20h.Common.Dtos.User;
+using Int20h.DAL.Entities;
 using AutoMapper;
 
-namespace int20h.BLL.Mappers
+namespace Int20h.BLL.Mappers
 {
 	public class DataMapperProfile : Profile
 	{

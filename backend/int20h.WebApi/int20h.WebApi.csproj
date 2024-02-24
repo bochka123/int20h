@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\int20h.BLL\int20h.BLL.csproj" />
+    <ProjectReference Include="..\int20h.BLL\Int20h.BLL.csproj" />
   </ItemGroup>
 
 </Project>

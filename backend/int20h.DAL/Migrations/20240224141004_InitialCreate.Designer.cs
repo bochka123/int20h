@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using int20h.DAL.Context;
+using Int20h.DAL.Context;
 
 #nullable disable
 
-namespace int20h.DAL.Migrations
+namespace Int20h.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240224141004_InitialCreate")]

@@ -1,9 +1,9 @@
 ﻿using System.Text;
-using int20h.BLL.Interfaces;
-using int20h.BLL.Mappers;
-using int20h.BLL.Services;
-using int20h.Common.Helpers;
-using int20h.DAL.Context;
+using Int20h.BLL.Interfaces;
+using Int20h.BLL.Mappers;
+using Int20h.BLL.Services;
+using Int20h.Common.Helpers;
+using Int20h.DAL.Context;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +11,10 @@ using Microsoft.IdentityModel.Tokens;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using System.Security.Claims;
+using Int20h.DAL.Interfaces;
+using Int20h.DAL.Helpers;
 
-namespace int20h.WebAPI.Extensions;
+namespace Int20h.WebAPI.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -33,7 +35,7 @@ public static class ServiceCollectionExtensions
 				options.TokenExpiration = 60;
 			}
 		});
-        //services.AddScoped<IMigrationHelper, MigrationHelper>();
+        services.AddScoped<IMigrationHelper, MigrationHelper>();
         services.AddScoped<IAuthService, AuthService>();
 		services.AddScoped<ICredentialService, CredentialService>();
 	}

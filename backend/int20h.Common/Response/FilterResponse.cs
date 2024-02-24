@@ -1,4 +1,4 @@
-﻿namespace int20h.Common.Response
+﻿namespace Int20h.Common.Response
 {
     public class FilterResponse<T> : Response<T> where T : class
     {

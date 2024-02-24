@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using int20h.BLL.Interfaces;
-using int20h.Common.Dtos.User;
-using int20h.Common.Response;
+using Int20h.BLL.Interfaces;
+using Int20h.Common.Dtos.User;
+using Int20h.Common.Response;
 using Microsoft.Net.Http.Headers;
 
-namespace int20h.WebAPI.Controllers;
+namespace Int20h.WebAPI.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
