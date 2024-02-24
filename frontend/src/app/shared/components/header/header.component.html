@@ -1,0 +1,32 @@
+<div class="header-wrp">
+  <div class="header-content" [routerLink]="['/']">
+    <div class="title">
+      <img src="favicon.ico"  alt="title"/>
+      <span>Auction_pafosna_nazva</span>
+    </div>
+  </div>
+  <div class="header-content">
+    <span>The coolest platform for auctions!</span>
+  </div>
+
+  <div class="login-block header-content" *ngIf = "!currentUser">
+    <button class="authorize-btn" [routerLink]="['/auth']">Authorize</button>
+  </div>
+
+  <div class="account-block header-content" *ngIf="currentUser" >
+    <div class="avatar">
+      <img src="{{avatarUrl}}" alt="User Avatar">
+    </div>
+    <div class="user-info">
+      <span>{{currentUser.firstName}} {{currentUser.lastName}}</span>
+    </div>
+    <div class="account-list">
+      <ul class="element-list" id="elementList">
+        <li [routerLink]="['/product', 'new-product']">Create new product</li>
+        <li [routerLink]="['/profile']">Account Information</li>
+        <li (click)="this.logOut()">Log Out</li>
+      </ul>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,17 @@
+@import "src/styles/colors";
+@import "src/styles/fonts";
+
+div{
+  margin: 0 10px;
+  display: flex;
+  color: $red-100;
+}
+
+img{
+  margin-right: 5px;
+}
+
+span{
+  max-width: 300px;
+  @include caption-font;
+}
