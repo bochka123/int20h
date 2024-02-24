@@ -25,9 +25,9 @@ public class AuthController : ControllerBase
 
 		if (response.Status == Status.Success)
         {
-            var refreshToken = await _authService.GenerateRefreshToken(response.Value);
+            var refreshToken = _authService.GenerateRefreshToken(response.Value!);
            
-            Response.Cookies.Append("X-Refresh-Token", refreshToken.Value, new CookieOptions
+            Response.Cookies.Append("X-Refresh-Token", refreshToken.Value!, new CookieOptions
             {
                 Expires = DateTime.Now.AddDays(7),
                 HttpOnly = true,
@@ -49,8 +49,8 @@ public class AuthController : ControllerBase
 
 		if (response.Status == Status.Success)
 		{
-			var refreshToken = await _authService.GenerateRefreshToken(response.Value);
-			Response.Cookies.Append("X-Refresh-Token", refreshToken.Value, new CookieOptions
+			var refreshToken = _authService.GenerateRefreshToken(response.Value!);
+			Response.Cookies.Append("X-Refresh-Token", refreshToken.Value!, new CookieOptions
 			{
 				Expires = DateTime.Now.AddDays(7),
 				HttpOnly = true,
@@ -66,10 +66,10 @@ public class AuthController : ControllerBase
 	}
 
 	[HttpPost("refresh")]
-	public async Task<ActionResult> Refresh()
+	public ActionResult Refresh()
     {
 		var refreshToken = Request.Cookies["X-Refresh-Token"];
-		var response = await _authService.GenerateAccessToken(refreshToken);
+		var response = _authService.GenerateAccessToken(refreshToken!);
 
 		if (response.Status == Status.Success)
 		{

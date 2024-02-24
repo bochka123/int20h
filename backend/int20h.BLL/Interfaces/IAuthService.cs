@@ -7,6 +7,6 @@ public interface IAuthService
 {
 	Task<Response<UserDto>> SignInAsync(SignInUserDto userDto);
 	Task<Response<UserDto>> CreateAsync(SignUpUserDto userDto);
-	Task<Response<AccessTokenDto>> GenerateAccessToken(string refreshToken);
-	Task<Response<string>> GenerateRefreshToken(UserDto userDto);
+	Response<AccessTokenDto> GenerateAccessToken(string refreshToken);
+	Response<string> GenerateRefreshToken(UserDto userDto);
 }

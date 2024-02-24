@@ -47,7 +47,7 @@ public class AuthService : BaseService, IAuthService
 		await _context.SaveChangesAsync();
 
 		var userResponse = _mapper.Map<UserDto>(user);
-		userResponse.AccessToken = await GenerateJwt(user);
+		userResponse.AccessToken = GenerateJwt(user);
 
 		return new Response<UserDto>()
 		{
@@ -79,7 +79,7 @@ public class AuthService : BaseService, IAuthService
 		}
 
 		var userResponse = _mapper.Map<UserDto>(user);
-		userResponse.AccessToken = await GenerateJwt(user);
+		userResponse.AccessToken = GenerateJwt(user);
 
 		return new Response<UserDto>()
 		{
@@ -89,7 +89,7 @@ public class AuthService : BaseService, IAuthService
 		};
 	}
 
-	public async Task<Response<AccessTokenDto>> GenerateAccessToken(string refreshToken)
+	public Response<AccessTokenDto> GenerateAccessToken(string refreshToken)
 	{
 		var email = DecodeJwt(refreshToken);
 
@@ -114,7 +114,7 @@ public class AuthService : BaseService, IAuthService
 
 		var accessToken = new AccessTokenDto()
 		{
-			AccessToken = await GenerateJwt(user)
+			AccessToken = GenerateJwt(user)
 		};
 
 		return new Response<AccessTokenDto>()
@@ -124,18 +124,18 @@ public class AuthService : BaseService, IAuthService
 		};
 	}
 
-	public async Task<Response<string>> GenerateRefreshToken(UserDto userDto)
+	public Response<string> GenerateRefreshToken(UserDto userDto)
 	{
 		var user = _mapper.Map<User>(userDto);
 
 		return new Response<string>()
 		{
-			Value = await GenerateJwt(user),
+			Value = GenerateJwt(user),
 			Status = Status.Success
 		};
 	}
 
-	private async Task<string> GenerateJwt(User user)
+	private string GenerateJwt(User user)
 	{
 		var claims = new List<Claim>
 			{
