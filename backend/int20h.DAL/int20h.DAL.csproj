@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\int20h.Common\Int20h.Common.csproj" />
+    <ProjectReference Include="..\Int20h.Common\Int20h.Common.csproj" />
   </ItemGroup>
 
 </Project>
