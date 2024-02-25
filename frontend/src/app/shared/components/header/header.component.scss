@@ -1,0 +1,129 @@
+@import 'src/styles/colors.scss';
+@import 'src/styles/fonts.scss';
+
+.header-wrp {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $white-100;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 12px 15px $gray-100;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+
+    &:last-child {
+        &:hover {
+            .account-list {
+                display: block;
+            }
+        }
+    }
+}
+
+.title {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 30px;
+        margin-right: 10px;
+    }
+
+    span {
+        color: $gray-300;
+        @include tub-font;
+    }
+}
+
+.login-block,
+.account-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.authorize-btn {
+    background-color: $yellow-100;
+    color: $white-100;
+    padding: 13px 35px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    @include button-font;
+
+    &:active,
+    &:hover {
+        background-color: $yellow-200;
+    }
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 50%;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.user-info {
+    span {
+        color: $black-100;
+        @include button-font;
+    }
+}
+
+.element-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.account-list {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    transition: max-height 0.3s ease-out;
+    min-width: 150px;
+
+    &:hover {
+        display: block;
+    }
+
+    &.open {
+        max-height: 200px;
+    }
+
+    .element-list {
+        list-style: none;
+        margin: 0;
+
+        li {
+            color: $black-100;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            transition: background-color 0.3s;
+
+            &.active {
+                background-color: $gray-300;
+            }
+
+            &:hover {
+                background-color: $gray-200;
+            }
+        }
+    }
+}
