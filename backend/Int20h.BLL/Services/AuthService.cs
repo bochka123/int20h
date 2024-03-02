@@ -1,22 +1,14 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
 
 using AutoMapper;
 
 using Int20h.BLL.Interfaces;
 using Int20h.BLL.Services.Abstract;
 using Int20h.Common.Dtos.User;
-using Int20h.Common.Helpers;
 using Int20h.Common.Response;
 using Int20h.DAL.Context;
 using Int20h.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
-using Int20h.Common.Enums;
 using Role = Int20h.DAL.Entities.Role;
 
 namespace Int20h.BLL.Services;
