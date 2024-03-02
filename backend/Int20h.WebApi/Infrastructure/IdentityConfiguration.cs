@@ -9,7 +9,8 @@ namespace Int20h.WebApi.Infrastructure
         {
             services.AddIdentity<User, Role>(options =>
             {
-                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 6;

@@ -96,7 +96,7 @@ export class SignUpComponent {
         const emailRegex =
             /^([a-zA-Z-]+([a-zA-Z0-9_.]+)?)@[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*$/;
         const mobilePhoneRegex = /^[0-9]{10}$/;
-        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\\d@$!%*?&.]{6,25}$/;
+        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&0-9]).{6,25}$/;
         this.firstNameError =
             firstName !== null && nameRegex.test(firstName) ? '' : 'First name must be Latin from 2 to 25 characters';
         this.lastNameError =

@@ -58,17 +58,17 @@ namespace Int20h.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("085c159d-917c-4cb5-afea-61b5e3bbc524"),
+                            Id = new Guid("e9f99198-02fc-49f3-9bd1-7c7c2e483dc5"),
                             Name = "admin"
                         },
                         new
                         {
-                            Id = new Guid("203739e4-a6bc-44f8-9f53-a5c22e7a427e"),
+                            Id = new Guid("26af1f8b-521d-4bc5-870a-3cdad30efda1"),
                             Name = "teacher"
                         },
                         new
                         {
-                            Id = new Guid("430eb4fb-5747-41ac-8756-3840fd9debc1"),
+                            Id = new Guid("5b0f1e26-527c-4178-8e58-509544615670"),
                             Name = "student"
                         });
                 });
