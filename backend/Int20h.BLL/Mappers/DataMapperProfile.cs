@@ -1,6 +1,7 @@
 ﻿using Int20h.Common.Dtos.User;
 using Int20h.DAL.Entities;
 using AutoMapper;
+using Int20h.Common.Dtos.Group;
 
 namespace Int20h.BLL.Mappers
 {
@@ -26,6 +27,10 @@ namespace Int20h.BLL.Mappers
 			CreateMap<EditUserDto, User>()
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
 				.ReverseMap();
+
+			CreateMap<CreateGroupDto, Group>().ReverseMap();
+
+            CreateMap<Group, GroupDto>().ReverseMap();
         }
 	}
 }
