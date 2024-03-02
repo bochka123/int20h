@@ -39,6 +39,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IMigrationHelper, MigrationHelper>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddTransient<IAzureBlobStorageService, AzureBlobStorageService>();
+        services.AddScoped<IUserService, UserService>();
 		services.AddScoped<ICredentialService, CredentialService>();
 	}
 
