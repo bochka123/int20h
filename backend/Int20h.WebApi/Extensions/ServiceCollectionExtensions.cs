@@ -5,7 +5,7 @@ using Int20h.BLL.Services;
 using Int20h.Common.Helpers;
 using Int20h.DAL.Context;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Int20h.WebApi.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using FluentValidation.AspNetCore;
@@ -23,9 +23,11 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
         services.Configure<JwtOptionsHelper>(options =>
         {
-			options.Audience = configuration["Jwt:Audience"];
-			options.Issuer = configuration["Jwt:Issuer"];
-			options.Key = configuration["Jwt:Key"];
+			options.Audience = configuration["Jwt:Audience"]!;
+			options.Issuer = configuration["Jwt:Issuer"]!;
+			options.Key = configuration["Jwt:Key"]!;
+            options.RefreshTokenKey = configuration["Jwt:RefreshTokenKey"]!;
+
 			if (int.TryParse(configuration["Jwt:TokenExpiration"], out int tokenExpiration))
 			{
 				options.TokenExpiration = tokenExpiration;
@@ -35,6 +37,7 @@ public static class ServiceCollectionExtensions
 				options.TokenExpiration = 60;
 			}
 		});
+		services.ConfigureIdentity(configuration);
         services.AddScoped<IMigrationHelper, MigrationHelper>();
         services.AddScoped<IAuthService, AuthService>();
 		services.AddScoped<ICredentialService, CredentialService>();
@@ -59,42 +62,7 @@ public static class ServiceCollectionExtensions
 
 	public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration config)
     {
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidIssuer = config["Jwt:Issuer"],
-                ValidAudience = config["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])),
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                RequireExpirationTime = true,
-                ValidateIssuerSigningKey = true
-            };
-            options.Events = new JwtBearerEvents
-            {
-                OnTokenValidated = async context =>
-                {
-                    var email = context?.Principal?.FindFirst(ClaimTypes.Email);
-                    if (email == null || email.Value == null)
-                    {
-                        context?.Fail("NameClaimType is missing in the token.");
-                        return;
-                    }
-                    var credentialService = context?.HttpContext.RequestServices.GetRequiredService<ICredentialService>();
-                    if (! await credentialService.SetUser(email!.Value))
-                    {
-                        context?.Fail("No user found for provided email!");
-                    }
-                }
-            };
-        });
+		services.ConfigureAuthentication(config);
         services.AddAuthorization();
     }
 }

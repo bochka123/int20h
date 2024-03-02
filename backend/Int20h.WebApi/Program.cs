@@ -1,5 +1,3 @@
-//using FluentValidation.AspNetCore;
-using Int20h.DAL.Interfaces;
 using Int20h.WebApi.Extensions;
 using Int20h.WebAPI.Extensions;
 
