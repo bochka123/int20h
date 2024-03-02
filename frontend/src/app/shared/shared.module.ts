@@ -3,10 +3,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
+import { ModalComponent } from './components/modal/modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
-    imports: [CommonModule, RouterLink, RouterLinkActive],
-    declarations: [HeaderComponent, ErrorComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MatDialogModule, MatIconModule],
+    declarations: [HeaderComponent, ErrorComponent, ModalComponent],
     exports: [HeaderComponent, ErrorComponent],
 })
 export class SharedModule {}

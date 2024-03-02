@@ -13,6 +13,7 @@ using FluentValidation;
 using System.Security.Claims;
 using Int20h.DAL.Interfaces;
 using Int20h.DAL.Helpers;
+using Azure.Storage.Blobs;
 
 namespace Int20h.WebAPI.Extensions;
 
@@ -40,6 +41,8 @@ public static class ServiceCollectionExtensions
 		services.ConfigureIdentity(configuration);
         services.AddScoped<IMigrationHelper, MigrationHelper>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddTransient<IAzureBlobStorageService, AzureBlobStorageService>();
+        services.AddScoped<IUserService, UserService>();
 		services.AddScoped<ICredentialService, CredentialService>();
 	}
 
@@ -64,5 +67,22 @@ public static class ServiceCollectionExtensions
     {
 		services.ConfigureAuthentication(config);
         services.AddAuthorization();
+    }
+
+    public static void RegisterAzureConfiguration(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration["AzureBlobStorageSettings:ConnectionString"];
+
+        services.AddScoped(_ =>
+                new BlobServiceClient(connectionString));
+
+        services.AddSingleton(provider =>
+        {
+            var options = new BlobContainerOptionsHelper
+            {
+                BlobContainerName = configuration["AzureBlobStorageSettings:BlobContainerName"]!
+            };
+            return options;
+        });
     }
 }
