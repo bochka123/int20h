@@ -2,15 +2,13 @@
 
 namespace Int20h.DAL.Entities
 {
-    public class StudentInformation : IBaseEntity<Guid>
+    public class StudentInformation : BaseEntity
     {
-        public Guid Id { get; set; }
         public User User { get; set; }
         public Guid UserId { get; set; }
         public bool IsVerified { get; set; }
         public Group Group { get; set; }
         public Guid GroupId { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public ICollection<StudentSubject> StudentSubjects { get; set; }
     }
 }
