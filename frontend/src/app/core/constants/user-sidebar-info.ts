@@ -7,9 +7,9 @@ export const userSidebarInfo: IUserSidebarInfo[] = [
         name: 'Test2',
     },
     {
-        availableRoles: [Role.teacher, Role.admin],
-        route: 'test',
-        name: 'Test3',
+        availableRoles: [Role.student, Role.teacher, Role.admin],
+        route: 'tests',
+        name: 'Tests',
     },
     {
         availableRoles: [Role.teacher, Role.admin],

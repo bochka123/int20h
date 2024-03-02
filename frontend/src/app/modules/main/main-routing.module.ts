@@ -21,6 +21,14 @@ const routes: Routes = [
             (m) => m.StudentsModule
           ),
       },
+      {
+        path: 'tests',
+        pathMatch: 'prefix',
+        loadChildren: () =>
+          import('../tests/tests.module').then(
+            (m) => m.TestsModule
+          ),
+      },
     ],
   },
 ];
