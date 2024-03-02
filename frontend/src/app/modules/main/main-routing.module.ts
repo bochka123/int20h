@@ -13,6 +13,14 @@ const routes: Routes = [
         path: '',
         component: MainContentComponent,
       },
+      {
+        path: 'students',
+        pathMatch: 'prefix',
+        loadChildren: () =>
+          import('../students/students.module').then(
+            (m) => m.StudentsModule
+          ),
+      },
     ],
   },
 ];

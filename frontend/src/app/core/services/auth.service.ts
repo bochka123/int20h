@@ -71,6 +71,15 @@ export class AuthService {
         return of(true);
     }
 
+    hasRole(role: Role): boolean {
+        return this.getUserRole() == role;
+    }
+
+    hasAnyRole(roles: Role[]): boolean {
+        const userRoles = [Role.admin, Role.teacher, Role.user]; 
+        return roles.some(role => userRoles.includes(role));
+    }
+
     // private checkAuthentication(): Observable<boolean> {
     //     return this.refresh().pipe(
     //         map((res) => {
