@@ -1,16 +1,16 @@
-﻿using Int20h.DAL.Entities.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using Int20h.DAL.Entities.Abstract;
 
-namespace Int20h.DAL.Entities
+namespace Int20h.DAL.Entities;
+
+public class Question : BaseEntity
 {
-    public class Question : IBaseEntity<Guid>
-    {
-        public Guid Id { get; set; }
-        public DateTime? CreatedAt {  get; set; }
-        public DateTime? UpdatedAt { get; set; }
-    }
+    [DisplayName("Question Title")]
+    public required string Title { get; set; }
+    [DisplayName("Question Text")]
+    public required string Text { get; set; }
+    public Test Test { get; set; }
+    public Guid TestId { get; set; }
+    public ICollection<QuestionOption> QuestionOptions { get; set; }
+    public double Cost { get; set; }
 }
