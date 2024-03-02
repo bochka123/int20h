@@ -8,3 +8,6 @@ import { TestsRoutingModule } from "./tests-routing.module";
     declarations: [TestsPageComponent],
     imports: [TestsRoutingModule],
 })
+export class TestsModule {
+
+}
