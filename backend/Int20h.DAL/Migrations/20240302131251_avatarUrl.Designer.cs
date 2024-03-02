@@ -4,6 +4,7 @@ using Int20h.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Int20h.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240302131251_avatarUrl")]
+    partial class avatarUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,23 +57,6 @@ namespace Int20h.DAL.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("085c159d-917c-4cb5-afea-61b5e3bbc524"),
-                            Name = "admin"
-                        },
-                        new
-                        {
-                            Id = new Guid("203739e4-a6bc-44f8-9f53-a5c22e7a427e"),
-                            Name = "teacher"
-                        },
-                        new
-                        {
-                            Id = new Guid("430eb4fb-5747-41ac-8756-3840fd9debc1"),
-                            Name = "student"
-                        });
                 });
 
             modelBuilder.Entity("Int20h.DAL.Entities.StudentInformation", b =>
