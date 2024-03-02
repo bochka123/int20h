@@ -12,9 +12,9 @@ export const userSidebarInfo: IUserSidebarInfo[] = [
         name: 'Test3',
     },
     {
-        availableRoles: [Role.student],
-        route: 'user',
-        name: 'Test1',
+        availableRoles: [Role.teacher, Role.admin],
+        route: 'students',
+        name: 'Students',
     }
 ]
 

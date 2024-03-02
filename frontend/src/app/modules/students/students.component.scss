@@ -1,5 +1,9 @@
-body {
-  font-family: Arial, sans-serif;
+:host-context {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .wrapper {
@@ -10,11 +14,11 @@ body {
   background-color: #f0f0f0;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
+  width: 60%;
   margin-bottom: 40px;
 }
 
-input{
+input {
   flex: 1;
   padding: 8px;
   border: none;
@@ -46,32 +50,53 @@ button:hover {
   background-color: #0056b3;
 }
 
-
-.block{
-  width: 50%;
-  margin: auto;
-  border: 1px solid black;
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 60%;
 }
 
-.student-info{
-  display: grid;
-  grid-template-columns: 80% 20%;
-  grid-template-rows: 1fr;
-  div{
-    font-weight: 600;
-    font-size: 2em;
+.student-info {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e0e0e0;
   }
-}
-.control-buttons{ //TODO set height
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  button{
-    background: unset;
-    border: unset;
-    border: 1px solid black;
-    svg{
 
+  div {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .control-buttons {
+    display: flex;
+    gap: 10px;
+
+    button {
+      background-color: #fff;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+
+      img {
+        width: 20px;
+      }
+
+      &:hover {
+        background-color: #e0e0e0;
+      }
     }
   }
 }
+
