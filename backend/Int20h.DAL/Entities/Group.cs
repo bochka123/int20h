@@ -2,13 +2,13 @@
 
 namespace Int20h.DAL.Entities
 {
-    public class TeacherInformation : IBaseEntity<Guid>
+    public class Group: IBaseEntity<Guid>
     {
         public Guid Id { get; set; }
-        public User User { get; set; }
-        public Guid UserId { get; set; }
+        public string Name { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public ICollection<Group> MentorGroups { get; set; }
+        public ICollection<StudentInformation> Students { get; set; }
+        public TeacherInformation Mentor { get; set; }
     }
 }

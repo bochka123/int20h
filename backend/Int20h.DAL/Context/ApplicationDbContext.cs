@@ -13,6 +13,7 @@ public class ApplicationDbContext: IdentityDbContext<User, Role, Guid>
 
     public DbSet<StudentInformation> StudentInformations { get; set; }
     public DbSet<TeacherInformation> TeacherInformations { get; set; }
+    public DbSet<Group> Groups { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
