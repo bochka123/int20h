@@ -1,11 +1,15 @@
 ﻿using Int20h.DAL.Entities.Abstract;
 
-namespace Int20h.DAL.Entities
+namespace Int20h.DAL.Entities;
+
+public class Test : BaseEntity
 {
-    public class Test: IBaseEntity<Guid>
-    {
-        public Guid Id { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-    }
+    public ICollection<Question> Questions { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public Subject Subject { get; set; }
+    public Guid SubjectId { get; set; }
+    public int NumberOfAttempts { get; set; }
+    public double Cost { get; set; }
+
 }

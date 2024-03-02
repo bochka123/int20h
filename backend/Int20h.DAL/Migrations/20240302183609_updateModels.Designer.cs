@@ -4,6 +4,7 @@ using Int20h.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Int20h.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240302183609_updateModels")]
+    partial class updateModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,10 +36,6 @@ namespace Int20h.DAL.Migrations
 
                     b.Property<Guid>("MentorId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -84,17 +83,17 @@ namespace Int20h.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e420e11a-a57e-4c47-8c2a-f4dce25227df"),
+                            Id = new Guid("8e99b3a7-414a-478e-ae32-bfabe72e6a9e"),
                             Name = "admin"
                         },
                         new
                         {
-                            Id = new Guid("df2021f9-575f-478e-967b-66a114a0b5f0"),
+                            Id = new Guid("916e01d6-ba89-4d35-a38c-7ad09faca7f4"),
                             Name = "teacher"
                         },
                         new
                         {
-                            Id = new Guid("1a4a4b58-9b15-43d8-9c07-389470c70987"),
+                            Id = new Guid("5c99630a-625d-4be4-82c9-97c1e8dbea4e"),
                             Name = "student"
                         });
                 });
@@ -108,11 +107,8 @@ namespace Int20h.DAL.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("GroupId")
+                    b.Property<Guid?>("GroupId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -356,19 +352,15 @@ namespace Int20h.DAL.Migrations
 
             modelBuilder.Entity("Int20h.DAL.Entities.StudentInformation", b =>
                 {
-                    b.HasOne("Int20h.DAL.Entities.Group", "Group")
+                    b.HasOne("Int20h.DAL.Entities.Group", null)
                         .WithMany("Students")
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GroupId");
 
                     b.HasOne("Int20h.DAL.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });
