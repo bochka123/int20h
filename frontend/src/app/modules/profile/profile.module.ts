@@ -5,8 +5,6 @@ import {SharedModule} from "@shared/shared.module";
 import {ProfileRoutingModule} from "@modules/profile/profile-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
 
-
-
 @NgModule({
   declarations: [
     ProfileComponent

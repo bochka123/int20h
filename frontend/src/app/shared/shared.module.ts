@@ -16,7 +16,7 @@ import { InfoSidebar } from './components/info-sidebar/info-sidebar.component';
     MatDialogModule,
     MatIconModule,
   ],
-  declarations: [HeaderComponent, ErrorComponent, ModalComponent],
+  declarations: [HeaderComponent, ErrorComponent, ModalComponent, InfoSidebar],
   exports: [HeaderComponent, ErrorComponent, InfoSidebar],
 })
 export class SharedModule {}
