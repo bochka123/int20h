@@ -10,6 +10,6 @@ namespace Int20h.Common.Dtos.User
 		public string Phone { get; set; }
 		public string Password { get; set; }
 		public Role Role { get; set; }
-		public string GroupName { get; set; }
+		public string? GroupName { get; set; }
 	}
 }

@@ -10,7 +10,7 @@ import { RegisterRoles } from '@shared/data/register-roles';
 import { ModalComponent } from '@shared/components/modal/modal.component';
 
 type OptionType = {
-    name: string, 
+    name: string,
     value: number,
 }
 
@@ -146,7 +146,8 @@ export class SignUpComponent {
         this.user.email = this.email.value;
         this.user.phone = this.mobilePhone.value;
         this.user.password = this.password.value;
-        
+        this.user.role = this.role.value;
+
         this.authService.signUp(this.user).subscribe(
             (result) => {
                 this.dialog.open(ModalComponent, {
