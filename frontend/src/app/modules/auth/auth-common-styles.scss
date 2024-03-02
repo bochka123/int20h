@@ -1,88 +1,114 @@
-@import 'src/styles/colors';
-@import 'src/styles/fonts';
+@import "src/styles/colors";
+@import "src/styles/fonts";
 
 main {
-    background-color: $white-100;
-    width: 100%;
-    min-width: 500px;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: $white-100;
+  width: 100%;
+  min-width: 500px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
 p {
-    color: $black-100;
-    text-align: center;
-    padding: 20px 0;
-    @include h3-font;
+  color: $black-100;
+  text-align: center;
+  padding: 20px 0;
+  @include h3-font;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 
-    & > div {
-        width: 60%;
-    }
+  & > div {
+    width: 60%;
+  }
 }
 
 input {
-    width: 100%;
-    background-color: $gray-100;
-    border-radius: 10px;
-    padding: 14px 15px;
-    border: none;
-    outline-color: $gray-200;
-    @include body1-font;
-    color: $black-100;
+  width: 100%;
+  background-color: $gray-100;
+  border-radius: 10px;
+  padding: 14px 15px;
+  border: none;
+  outline-color: $gray-200;
+  @include body1-font;
+  color: $black-100;
 
-    &[type='submit'] {
-        background-color: $black-100;
-        color: $gray-100;
-        cursor: pointer;
-        &:hover {
-            background-color: darken($black-100, 10%);
-        }
+  &[type="submit"] {
+    background-color: $black-100;
+    color: $gray-100;
+    cursor: pointer;
+    &:hover {
+      background-color: darken($black-100, 10%);
     }
-    
-    
-    &[type='reset'] {
-        background-color: $gray-200;
-        color: $black-100;
-        cursor: pointer;
-        &:hover {
-            background-color: darken($gray-200, 10%);
-        }
+  }
+
+  &[type="reset"] {
+    background-color: $gray-200;
+    color: $black-100;
+    cursor: pointer;
+    &:hover {
+      background-color: darken($gray-200, 10%);
     }
+  }
 }
 
 .password div {
-    position: relative;
+  position: relative;
 }
 
 .buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
-    flex-direction: row;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 p.authentication-link {
-    color: $black-100;
-    text-align: center;
-    padding: 20px 0;
-    @include body2-font;
-  
-    a {
-      color: $blue-100;
-      text-decoration: none;
-  
-      &:hover {
-        color: $blue-300;
-      }
+  color: $black-100;
+  text-align: center;
+  padding: 20px 0;
+  @include body2-font;
+
+  a {
+    color: $blue-100;
+    text-decoration: none;
+
+    &:hover {
+      color: $blue-300;
     }
   }
+}
+
+select {
+  width: 100%;
+  background-color: $gray-100;
+  border-radius: 10px;
+  padding: 14px 15px;
+  border: none;
+  outline-color: $gray-200;
+  @include body1-font;
+  color: $black-100;
+}
+
+select::-ms-expand,
+select::-ms-value {
+  display: none;
+}
+
+select::-webkit-inner-spin-button,
+select::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+select::-webkit-calendar-picker-indicator {
+  color: transparent;
+  background: none;
+}
