@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map, of } from 'rxjs';
 import { HttpService } from './http.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { IAccessToken, IUser } from '../../models/IUser';
+import { IAccessToken, ICreateUser, IUser } from '../../models/IUser';
 import { Role } from '@shared/data/roles';
 import { IResponse, IResponseT, ResponseStatus } from 'src/app/models/IResponse';
 
@@ -91,7 +91,7 @@ export class AuthService {
         );
     }
 
-    signUp(user: IUser) {
+    signUp(user: ICreateUser) {
         return this.httpService.post(`${this.controllerUrl}/sign-up`, user);
     }
 
