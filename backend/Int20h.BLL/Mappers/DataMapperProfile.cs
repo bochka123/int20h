@@ -13,10 +13,19 @@ namespace Int20h.BLL.Mappers
 
 		private void ConfigureUserMapper()
 		{
-			CreateMap<User, UserDto>().ReverseMap();
+			CreateMap<User, UserDto>()
+				.ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.PhoneNumber))
+				.ReverseMap();
+
 			CreateMap<SignInUserDto, User>().ReverseMap();
-			CreateMap<SignUpUserDto, User>().ReverseMap();
-			CreateMap<EditUserDto, User>().ReverseMap();
+
+			CreateMap<SignUpUserDto, User>()
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
+				.ReverseMap();
+
+			CreateMap<EditUserDto, User>()
+                .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
+				.ReverseMap();
         }
 	}
 }
