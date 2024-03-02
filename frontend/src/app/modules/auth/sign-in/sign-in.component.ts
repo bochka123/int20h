@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
-import { IUser } from '../../../models/IUser';
+import {ICreateUser, IUser} from '../../../models/IUser';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
@@ -19,7 +19,7 @@ export class SignInComponent {
         password: new FormControl(''),
     });
 
-    user: IUser = {
+    user: ICreateUser = {
         firstName: '',
         lastName: '',
         email: '',

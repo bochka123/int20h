@@ -26,8 +26,21 @@ public class ApplicationDbContext: IdentityDbContext<User, Role, Guid>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new GroupConfiguration());
+        modelBuilder.ApplyConfiguration(new LessonConfiguration());
+        modelBuilder.ApplyConfiguration(new QuestionConfiguration());
+        modelBuilder.ApplyConfiguration(new QuestionOptionConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        modelBuilder.ApplyConfiguration(new SessionAnswerConfiguration());
+        modelBuilder.ApplyConfiguration(new StudentInformationConfiguration());
+        modelBuilder.ApplyConfiguration(new StudentLessonConfiguration());
+        modelBuilder.ApplyConfiguration(new StudentSubjectConfiguration());
+        modelBuilder.ApplyConfiguration(new SubjectConfiguration());
+        modelBuilder.ApplyConfiguration(new TeacherConfiguration());
+        modelBuilder.ApplyConfiguration(new TestConfiguration());
+        modelBuilder.ApplyConfiguration(new TestSessionConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
+
         base.OnModelCreating(modelBuilder);
     }
 }

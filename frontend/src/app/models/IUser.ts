@@ -1,13 +1,22 @@
 import { RegisterRoles } from "@shared/data/register-roles";
+import { IBaseEntity } from "./IBaseEntity";
 
-export interface IUser {
+export interface IUser extends IBaseEntity {
     firstName: string;
     lastName: string;
     email?: string;
     password?: string;
     phone?: string;
     avatarUrl? : string;
-    role?: RegisterRoles;
+}
+
+export interface ICreateUser {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    phone?: string;
+    role?: RegisterRoles | null;
 }
 
 export interface IAccessToken {

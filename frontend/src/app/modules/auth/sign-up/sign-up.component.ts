@@ -3,14 +3,14 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { matchpassword } from '@core/validators/matchpassword.validator';
 import { emailFormatRegex, mobilePhoneFormatRegex, nameFormatRegex, passFormatRegex } from '@core/utils/regex.util';
-import { IUser } from '../../../models/IUser';
+import { ICreateUser } from '../../../models/IUser';
 import { Router } from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
-import {ModalComponent} from "@shared/components/modal/modal.component";
 import { RegisterRoles } from '@shared/data/register-roles';
+import { ModalComponent } from '@shared/components/modal/modal.component';
 
 type OptionType = {
-    name: string, 
+    name: string,
     value: number,
 }
 
@@ -75,13 +75,13 @@ export class SignUpComponent {
         },
     );
 
-    user: IUser = {
+    user: ICreateUser = {
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         phone: '',
-        role: undefined,
+        role: null,
     };
 
     constructor(
@@ -146,31 +146,31 @@ export class SignUpComponent {
         this.user.email = this.email.value;
         this.user.phone = this.mobilePhone.value;
         this.user.password = this.password.value;
-        console.log(this.user);
-        
-        // this.authService.signUp(this.user).subscribe(
-        //     (result) => {
-        //         this.dialog.open(ModalComponent, {
-        //             data: {
-        //                 header: 'Success',
-        //                 content: (result as any).message,
-        //             },
-        //         });
-        //         const token = (result as any).value.accessToken;
-        //         const user = (result as any).value;
-        //         localStorage.setItem('accessToken', token);
-        //         localStorage.setItem('user', JSON.stringify(user));
-        //         this.router.navigate(['/']);
-        //     },
-        //     (error) => {
-        //         this.dialog.open(ModalComponent, {
-        //             data: {
-        //                 header: 'Error',
-        //                 content: (error.error as any).message,
-        //             },
-        //         });
-        //     },
-        // );
+        this.user.role = this.role.value;
+
+        this.authService.signUp(this.user).subscribe(
+            (result) => {
+                this.dialog.open(ModalComponent, {
+                    data: {
+                        header: 'Success',
+                        content: (result as any).message,
+                    },
+                });
+                const token = (result as any).value.accessToken;
+                const user = (result as any).value;
+                localStorage.setItem('accessToken', token);
+                localStorage.setItem('user', JSON.stringify(user));
+                this.router.navigate(['/']);
+            },
+            (error) => {
+                this.dialog.open(ModalComponent, {
+                    data: {
+                        header: 'Error',
+                        content: (error.error as any).message,
+                    },
+                });
+            },
+        );
     }
 
     get firstName(): FormControl {
