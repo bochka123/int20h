@@ -8,19 +8,23 @@ namespace Int20h.DAL.Context.ModelConfigurations
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
+            builder.HasKey(x => x.Id);
             var roles = new Role[]
             {
                 new()
                 {
                     Name = "admin",
+                    Id = Guid.NewGuid()
                 },
                 new()
                 {
-                    Name = "teacher"
+                    Name = "teacher",
+                    Id = Guid.NewGuid()
                 },
                 new()
                 {
-                    Name = "student"
+                    Name = "student",
+                    Id = Guid.NewGuid()
                 }
             };
             builder.HasData(roles);
