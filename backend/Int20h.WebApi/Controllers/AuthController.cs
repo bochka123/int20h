@@ -13,10 +13,12 @@ namespace Int20h.WebAPI.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
+	private readonly ITokenService _tokenService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, ITokenService tokenService)
     {
         _authService = authService;
+        _tokenService = tokenService;
     }
     [HttpPost("sign-in")]
 	public async Task<ActionResult> SignIn([FromBody] SignInUserDto userDto)
@@ -25,7 +27,7 @@ public class AuthController : ControllerBase
 
 		if (response.Status == Status.Success)
         {
-            var refreshToken = _authService.GenerateRefreshToken(response.Value!);
+            var refreshToken = _tokenService.GenerateRefreshToken(response.Value!);
            
             Response.Cookies.Append("X-Refresh-Token", refreshToken.Value!, new CookieOptions
             {
@@ -49,7 +51,7 @@ public class AuthController : ControllerBase
 
 		if (response.Status == Status.Success)
 		{
-			var refreshToken = _authService.GenerateRefreshToken(response.Value!);
+			var refreshToken = _tokenService.GenerateRefreshToken(response.Value!);
 			Response.Cookies.Append("X-Refresh-Token", refreshToken.Value!, new CookieOptions
 			{
 				Expires = DateTime.Now.AddDays(7),
@@ -69,7 +71,7 @@ public class AuthController : ControllerBase
 	public async Task<ActionResult> Refresh()
     {
 		var refreshToken = Request.Cookies["X-Refresh-Token"];
-		var response = await _authService.GenerateAccessTokenAsync(refreshToken!);
+		var response = await _tokenService.GenerateAccessTokenAsync(refreshToken!);
 
 		if (response.Status == Status.Success)
 		{
