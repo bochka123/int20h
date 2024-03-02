@@ -1,0 +1,14 @@
+<main>
+  <h1>Create a group</h1>
+  <form (submit)="submitForm($event)" [formGroup]="createGroupForm">
+    <div>
+      <input placeholder="Group name" type="text" formControlName="groupName">
+    </div>
+    <div>
+      <input placeholder="Mentor email" type="text" formControlName="mentorEmail">
+    </div>
+    <div class="buttons">
+      <input type="submit" value="Create group">
+    </div>
+  </form>
+</main>
