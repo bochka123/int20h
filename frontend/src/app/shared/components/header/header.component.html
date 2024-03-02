@@ -10,7 +10,7 @@
   </div>
 
   <div class="login-block header-content" *ngIf = "!currentUser">
-    <button class="authorize-btn" [routerLink]="['/auth']">Authorize</button>
+    <button class="authorize-btn" [routerLink]="['/auth/sign-in']">Authorize</button>
   </div>
 
   <div class="account-block header-content" *ngIf="currentUser" >
