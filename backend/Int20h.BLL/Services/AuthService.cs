@@ -16,22 +16,23 @@ using Int20h.Common.Response;
 using Int20h.DAL.Context;
 using Int20h.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
+using Int20h.Common.Enums;
+using Role = Int20h.DAL.Entities.Role;
 
 namespace Int20h.BLL.Services;
 
 public class AuthService : BaseService, IAuthService
 {
-	private readonly JwtOptionsHelper _jwtOptionsHelper;
 	private readonly UserManager<User> _userManager;
 	private readonly RoleManager<Role> _roleManager;
 	private readonly ITokenService _tokenService;
 
-	public AuthService(ApplicationDbContext context, IMapper mapper, IOptions<JwtOptionsHelper> jwtOptionsHelper,
-		UserManager<User> userManager, RoleManager<Role> roleManager, ITokenService tokenService) : base(context, mapper)
+	public AuthService(ApplicationDbContext context, IMapper mapper, UserManager<User> userManager, 
+		RoleManager<Role> roleManager, ITokenService tokenService) : base(context, mapper)
 	{
-		_jwtOptionsHelper = jwtOptionsHelper.Value;
 		_userManager = userManager;
 		_roleManager = roleManager;
+		_tokenService = tokenService;
 	}
 	public async Task<Response<UserDto>> SignUpAsync(SignUpUserDto userDto)
 	{
@@ -51,8 +52,34 @@ public class AuthService : BaseService, IAuthService
             return new Response<UserDto>("Error while creating user.", result.Errors.Select(u => u.Description));
         }
 
-		var userResponse = _mapper.Map<UserDto>(user);
-		userResponse.AccessToken = await GenerateJwtAsync(user);
+		if (userDto.Role == Common.Enums.Role.Student)
+		{
+			var group = _context.Groups.FirstOrDefault(x => x.Name == userDto.GroupName);
+            if (group == null)
+            {
+				return new Response<UserDto>(Status.Error, "No group with such name");
+            }
+            var studentInformation = new StudentInformation()
+			{
+				CreatedAt = DateTime.Now,
+				UpdatedAt = DateTime.Now,
+				UserId = user.Id,
+				GroupId = group.Id
+			};
+		}
+        else
+        {
+			var teacherInformation = new TeacherInformation()
+			{
+				CreatedAt = DateTime.Now,
+				UpdatedAt = DateTime.Now,
+				UserId = user.Id
+			};
+        }
+		await _context.SaveChangesAsync();
+
+        var userResponse = _mapper.Map<UserDto>(user);
+		userResponse.AccessToken = await _tokenService.GenerateJwtAsync(user);
 
 		return new Response<UserDto>(userResponse, "You have sign up succesfully");
 	}
@@ -71,7 +98,7 @@ public class AuthService : BaseService, IAuthService
         }
 
 		var userResponse = _mapper.Map<UserDto>(user);
-		userResponse.AccessToken = await GenerateJwtAsync(user);
+		userResponse.AccessToken = await _tokenService.GenerateJwtAsync(user);
 
 		return new Response<UserDto>()
 		{
@@ -80,90 +107,4 @@ public class AuthService : BaseService, IAuthService
 			Status = Status.Success
 		};
 	}
-
-	public async Task<Response<AccessTokenDto>> GenerateAccessTokenAsync(string refreshToken)
-	{
-		var email = DecodeJwt(refreshToken);
-
-		if (string.IsNullOrEmpty(email))
-		{
-			return new Response<AccessTokenDto>(Status.Error, "Wrong refresh token");
-		}
-
-		var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-		if (user == null)
-		{
-			return new Response<AccessTokenDto>(Status.Error, $"User with email {email} was not found");
-		}
-
-		var accessToken = new AccessTokenDto()
-		{
-			AccessToken = await GenerateJwtAsync(user)
-		};
-
-		return new Response<AccessTokenDto>()
-		{
-			Value = accessToken,
-			Status = Status.Success
-		};
-	}
-
-	private string DecodeJwt(string jwtToken)
-	{
-		var tokenHandler = new JwtSecurityTokenHandler();
-
-		var token = tokenHandler.ReadToken(jwtToken) as JwtSecurityToken;
-
-		if (token != null)
-		{
-			return token.Claims.First(claim => claim.Type == ClaimTypes.Email || claim.Type == "email").Value;
-		}
-		else
-		{
-			return string.Empty;
-		}
-	}
-
-	private async Task<string> GenerateJwtAsync(User user)
-	{
-		var userRoles = await _userManager.GetRolesAsync(user);
-		var tokenHandler = new JwtSecurityTokenHandler();
-		var claims = new List<Claim>()
-			{
-				new Claim(ClaimTypes.Email, user.Email!)
-			};
-		var key = Encoding.UTF8.GetBytes(_jwtOptionsHelper.Key);
-		userRoles.ToList().ForEach(x => claims.Add(new Claim(ClaimTypes.Role, x)));
-
-		var tokenDescriptor = new SecurityTokenDescriptor
-		{
-			Subject = new ClaimsIdentity(claims),
-			Issuer = _jwtOptionsHelper.Issuer,
-			Audience = _jwtOptionsHelper.Audience,
-			Expires = DateTime.UtcNow.AddMinutes(30),
-			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
-		};
-		var token = tokenHandler.CreateToken(tokenDescriptor);
-		return tokenHandler.WriteToken(token);
-	}
-
-    public Response<string> GenerateRefreshToken(UserDto userDto)
-    {
-        var user = _mapper.Map<User>(userDto);
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var claims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.Email, user.Email!)
-            };
-        var key = Encoding.UTF8.GetBytes(_jwtOptionsHelper.RefreshTokenKey);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(claims),
-            Issuer = _jwtOptionsHelper.Issuer,
-            Audience = _jwtOptionsHelper.Audience,
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return new Response<string>(tokenHandler.WriteToken(token));
-    }
 }

@@ -7,6 +7,9 @@ namespace Int20h.DAL.Entities
         public Guid Id { get; set; }
         public User User { get; set; }
         public Guid UserId { get; set; }
+        public bool IsVerified { get; set; }
+        public Group Group { get; set; }
+        public Guid GroupId { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }

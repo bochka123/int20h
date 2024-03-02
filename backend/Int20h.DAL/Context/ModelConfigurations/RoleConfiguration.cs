@@ -1,6 +1,8 @@
-﻿using Int20h.DAL.Entities;
+﻿using Int20h.Common.Enums;
+using Int20h.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Role = Int20h.DAL.Entities.Role;
 
 namespace Int20h.DAL.Context.ModelConfigurations
 {
@@ -13,17 +15,17 @@ namespace Int20h.DAL.Context.ModelConfigurations
             {
                 new()
                 {
-                    Name = "admin",
+                    Name = Roles.Admin,
                     Id = Guid.NewGuid()
                 },
                 new()
                 {
-                    Name = "teacher",
+                    Name = Roles.Teacher,
                     Id = Guid.NewGuid()
                 },
                 new()
                 {
-                    Name = "student",
+                    Name = Roles.Student,
                     Id = Guid.NewGuid()
                 }
             };
