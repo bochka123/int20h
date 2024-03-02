@@ -44,7 +44,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IAzureBlobStorageService, AzureBlobStorageService>();
         services.AddScoped<IUserService, UserService>();
 		services.AddScoped<ITokenService, TokenService>();
-		services.AddScoped<ICredentialService, CredentialService>();
+        services.AddTransient<IGroupService, GroupService>();
+        services.AddTransient<ISubjectService, SubjectService>();
+        services.AddScoped<ICredentialService, CredentialService>();
 	}
 
     public static void AddCustomAutoMapperProfiles(this IServiceCollection services)

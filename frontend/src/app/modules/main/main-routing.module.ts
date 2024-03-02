@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MainComponent } from './main.component';
 import { MainContentComponent } from './main-content/main-content.component';
+import {AuthGuard} from "@core/guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -22,12 +23,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'tests',
+        path: 'groups',
         pathMatch: 'prefix',
-        loadChildren: () =>
-          import('../tests/tests.module').then(
-            (m) => m.TestsModule
-          ),
+        loadChildren: () => import('../groups/groups.module').then((m) => m.GroupsModule),
+        canActivate: [AuthGuard],
       },
     ],
   },
