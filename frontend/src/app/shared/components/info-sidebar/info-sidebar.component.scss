@@ -1,18 +1,17 @@
-@import 'src/styles/colors';
+@import "src/styles/colors";
 
-aside{
-  margin-top: 40px;
+aside {
+  margin-top: 10px;
   width: 250px;
-  height: 100%;
-  position: absolute;
   padding: 20px;
   box-shadow: 0 0 20px $gray-200;
   border-radius: 0 20px 20px 0;
-  div{
+  div {
     margin-bottom: 1px;
     border-radius: 10px;
   }
 }
+
 .sidebar-link {
   display: block;
   padding: 10px 15px;
@@ -27,6 +26,6 @@ aside{
   border-radius: 10px;
 }
 
-.activated{
+.activated {
   color: black; //TODO change color later
 }
