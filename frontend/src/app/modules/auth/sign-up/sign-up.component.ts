@@ -5,8 +5,8 @@ import { matchpassword } from '@core/validators/matchpassword.validator';
 import { emailFormatRegex, mobilePhoneFormatRegex, nameFormatRegex, passFormatRegex } from '@core/utils/regex.util';
 import { IUser } from '../../../models/IUser';
 import { Router } from '@angular/router';
-import {ModalComponent} from "@shared/components/modal/modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ModalComponent} from "@shared/components/modal/modal.component";
 
 @Component({
     selector: 'app-sign-up',

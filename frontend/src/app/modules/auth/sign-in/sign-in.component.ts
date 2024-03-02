@@ -3,6 +3,8 @@ import { AuthService } from '@core/services/auth.service';
 import { IUser } from '../../../models/IUser';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import {MatDialog} from "@angular/material/dialog";
+import {ModalComponent} from "@shared/components/modal/modal.component";
 
 @Component({
     selector: 'app-sign-in',
@@ -26,7 +28,7 @@ export class SignInComponent {
 
     constructor(
         private authService: AuthService,
-        // private dialog: MatDialog,
+        private dialog: MatDialog,
         private router: Router,
     ) {}
 
@@ -47,12 +49,12 @@ export class SignInComponent {
                 this.router.navigate(['/']);
             },
             (error) => {
-                // this.dialog.open(ModalComponent, {
-                //     data: {
-                //         header: 'Error',
-                //         content: (error.error as any).message,
-                //     },
-                // });
+                this.dialog.open(ModalComponent, {
+                    data: {
+                        header: 'Error',
+                        content: (error.error as any).message,
+                    },
+                });
             },
         );
     }
