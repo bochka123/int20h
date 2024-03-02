@@ -7,6 +7,10 @@ public class Response<T> : Response where T : class
         Value = data;
     }
 
+    public Response(string message, IEnumerable<string> errors) : base(message, errors)
+    {
+    }
+
     public Response(Status status, string? message = null) : base(status, message)
     {
     }

@@ -15,46 +15,45 @@ using Int20h.Common.Helpers;
 using Int20h.Common.Response;
 using Int20h.DAL.Context;
 using Int20h.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Int20h.BLL.Services;
 
 public class AuthService : BaseService, IAuthService
 {
 	private readonly JwtOptionsHelper _jwtOptionsHelper;
+	private readonly UserManager<User> _userManager;
+	private readonly RoleManager<Role> _roleManager;
 
-	public AuthService(ApplicationDbContext context, IMapper mapper, IOptions<JwtOptionsHelper> jwtOptionsHelper) : base(context, mapper)
+	public AuthService(ApplicationDbContext context, IMapper mapper, IOptions<JwtOptionsHelper> jwtOptionsHelper,
+		UserManager<User> userManager, RoleManager<Role> roleManager) : base(context, mapper)
 	{
 		_jwtOptionsHelper = jwtOptionsHelper.Value;
+		_userManager = userManager;
+		_roleManager = roleManager;
 	}
-	public async Task<Response<UserDto>> CreateAsync(SignUpUserDto userDto)
+	public async Task<Response<UserDto>> SignUpAsync(SignUpUserDto userDto)
 	{
 		var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userDto.Email);
 		if (user != null)
 		{
-			return new Response<UserDto>
-			{
-				Message = $"User with email {userDto.Email} alreasy exists",
-				Status = Status.Error
-			};
+			return new Response<UserDto>(Status.Error, $"User with email {userDto.Email} alreasy exists");
 		}
 
 		user = _mapper.Map<User>(userDto);
-		user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
-		user.CreatedAt = DateTime.UtcNow;
-		user.UpdatedAt = DateTime.UtcNow;
-
-		await _context.Users.AddAsync(user);
-		await _context.SaveChangesAsync();
+		user.CreatedAt = DateTime.Now;
+		user.UpdatedAt = DateTime.Now;
+		user.UserName = userDto.Email;
+        var result = await _userManager.CreateAsync(user, userDto.Password);
+        if (!result.Succeeded)
+        {
+            return new Response<UserDto>("Error while creating user.", result.Errors.Select(u => u.Description));
+        }
 
 		var userResponse = _mapper.Map<UserDto>(user);
-		userResponse.AccessToken = GenerateJwt(user);
+		userResponse.AccessToken = await GenerateJwtAsync(user);
 
-		return new Response<UserDto>()
-		{
-			Value = userResponse,
-			Message = "You have sign up succesfully",
-			Status = Status.Success
-		};
+		return new Response<UserDto>(userResponse, "You have sign up succesfully");
 	}
 
 	public async Task<Response<UserDto>> SignInAsync(SignInUserDto userDto)
@@ -62,24 +61,16 @@ public class AuthService : BaseService, IAuthService
 		var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userDto.Email);
 		if (user == null)
 		{
-			return new Response<UserDto>
-			{
-				Message = $"User with email {userDto.Email} was not found",
-				Status = Status.Error
-			};
-		}
+            return new Response<UserDto>(Status.Error, $"User with email {userDto.Email} was not found");
+        }
 
-		if (!BCrypt.Net.BCrypt.Verify(userDto.Password, user.PasswordHash))
-		{
-			return new Response<UserDto>
-			{
-				Message = "Wrong password",
-				Status = Status.Error
-			};
-		}
+        if (!await _userManager.CheckPasswordAsync(user, userDto.Password))
+        {
+            return new(Status.Error, "Incorrect password.");
+        }
 
 		var userResponse = _mapper.Map<UserDto>(user);
-		userResponse.AccessToken = GenerateJwt(user);
+		userResponse.AccessToken = await GenerateJwtAsync(user);
 
 		return new Response<UserDto>()
 		{
@@ -89,32 +80,24 @@ public class AuthService : BaseService, IAuthService
 		};
 	}
 
-	public Response<AccessTokenDto> GenerateAccessToken(string refreshToken)
+	public async Task<Response<AccessTokenDto>> GenerateAccessTokenAsync(string refreshToken)
 	{
 		var email = DecodeJwt(refreshToken);
 
-		if(string.IsNullOrEmpty(email))
+		if (string.IsNullOrEmpty(email))
 		{
-			return new Response<AccessTokenDto>
-			{
-				Message = "Wrong refresh token",
-				Status = Status.Error
-			};
+			return new Response<AccessTokenDto>(Status.Error, "Wrong refresh token");
 		}
 
-		var user = _context.Users.FirstOrDefault(u => u.Email == email);
+		var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 		if (user == null)
 		{
-			return new Response<AccessTokenDto>
-			{
-				Message = $"User with email {email} was not found",
-				Status = Status.Error
-			};
+			return new Response<AccessTokenDto>(Status.Error, $"User with email {email} was not found");
 		}
 
 		var accessToken = new AccessTokenDto()
 		{
-			AccessToken = GenerateJwt(user)
+			AccessToken = await GenerateJwtAsync(user)
 		};
 
 		return new Response<AccessTokenDto>()
@@ -122,40 +105,6 @@ public class AuthService : BaseService, IAuthService
 			Value = accessToken,
 			Status = Status.Success
 		};
-	}
-
-	public Response<string> GenerateRefreshToken(UserDto userDto)
-	{
-		var user = _mapper.Map<User>(userDto);
-
-		return new Response<string>()
-		{
-			Value = GenerateJwt(user),
-			Status = Status.Success
-		};
-	}
-
-	private string GenerateJwt(User user)
-	{
-		var claims = new List<Claim>
-			{
-				new(ClaimTypes.Email, user.Email)
-			};
-
-		var tokenHandler = new JwtSecurityTokenHandler();
-
-		var securityTokenDescription = new SecurityTokenDescriptor
-		{
-			Subject = new ClaimsIdentity(claims),
-			Issuer = _jwtOptionsHelper.Issuer,
-			Audience = _jwtOptionsHelper.Audience,
-			Expires = DateTime.UtcNow.AddMinutes(_jwtOptionsHelper.TokenExpiration),
-			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptionsHelper.Key)), SecurityAlgorithms.HmacSha256)
-		};
-
-		var jwt = tokenHandler.CreateToken(securityTokenDescription);
-
-		return tokenHandler.WriteToken(jwt);
 	}
 
 	private string DecodeJwt(string jwtToken)
@@ -166,11 +115,54 @@ public class AuthService : BaseService, IAuthService
 
 		if (token != null)
 		{
-			return token.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Email || claim.Type == "email")?.Value;
+			return token.Claims.First(claim => claim.Type == ClaimTypes.Email || claim.Type == "email").Value;
 		}
 		else
 		{
 			return string.Empty;
 		}
 	}
+
+	private async Task<string> GenerateJwtAsync(User user)
+	{
+		var userRoles = await _userManager.GetRolesAsync(user);
+		var tokenHandler = new JwtSecurityTokenHandler();
+		var claims = new List<Claim>()
+			{
+				new Claim(ClaimTypes.Email, user.Email!)
+			};
+		var key = Encoding.UTF8.GetBytes(_jwtOptionsHelper.Key);
+		userRoles.ToList().ForEach(x => claims.Add(new Claim(ClaimTypes.Role, x)));
+
+		var tokenDescriptor = new SecurityTokenDescriptor
+		{
+			Subject = new ClaimsIdentity(claims),
+			Issuer = _jwtOptionsHelper.Issuer,
+			Audience = _jwtOptionsHelper.Audience,
+			Expires = DateTime.UtcNow.AddMinutes(30),
+			SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+		};
+		var token = tokenHandler.CreateToken(tokenDescriptor);
+		return tokenHandler.WriteToken(token);
+	}
+
+    public Response<string> GenerateRefreshToken(UserDto userDto)
+    {
+        var user = _mapper.Map<User>(userDto);
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Email, user.Email!)
+            };
+        var key = Encoding.UTF8.GetBytes(_jwtOptionsHelper.RefreshTokenKey);
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Issuer = _jwtOptionsHelper.Issuer,
+            Audience = _jwtOptionsHelper.Audience,
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+        };
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return new Response<string>(tokenHandler.WriteToken(token));
+    }
 }

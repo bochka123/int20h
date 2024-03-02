@@ -4,6 +4,7 @@ using Int20h.BLL.Interfaces;
 using Int20h.Common.Dtos.User;
 using Int20h.Common.Response;
 using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Int20h.WebAPI.Controllers;
 
@@ -17,8 +18,7 @@ public class AuthController : ControllerBase
     {
         _authService = authService;
     }
-
-	[HttpPost("sign-in")]
+    [HttpPost("sign-in")]
 	public async Task<ActionResult> SignIn([FromBody] SignInUserDto userDto)
     {
         var response = await _authService.SignInAsync(userDto);
@@ -45,7 +45,7 @@ public class AuthController : ControllerBase
 	[HttpPost("sign-up")]
 	public async Task<ActionResult> SignUp([FromBody] SignUpUserDto userDto)
     {
-		var response = await _authService.CreateAsync(userDto);
+		var response = await _authService.SignUpAsync(userDto);
 
 		if (response.Status == Status.Success)
 		{
@@ -66,10 +66,10 @@ public class AuthController : ControllerBase
 	}
 
 	[HttpPost("refresh")]
-	public ActionResult Refresh()
+	public async Task<ActionResult> Refresh()
     {
 		var refreshToken = Request.Cookies["X-Refresh-Token"];
-		var response = _authService.GenerateAccessToken(refreshToken!);
+		var response = await _authService.GenerateAccessTokenAsync(refreshToken!);
 
 		if (response.Status == Status.Success)
 		{
