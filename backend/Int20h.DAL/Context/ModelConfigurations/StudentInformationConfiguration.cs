@@ -8,15 +8,21 @@ namespace Int20h.DAL.Context.ModelConfigurations
     {
         public void Configure(EntityTypeBuilder<StudentInformation> builder)
         {
-            builder
-                .HasOne(s => s.User)
-                .WithOne()
-                .OnDelete(DeleteBehavior.SetNull);
+            builder.HasKey(s => s.Id);
+            //builder
+            //    .HasOne(s => s.User)
+            //    .WithOne()
+            //    .OnDelete(DeleteBehavior.SetNull);
 
-            builder
-                .HasOne(s => s.Group)
-                .WithMany(g => g.Students)
-                .HasForeignKey(s => s.GroupId);
+            //builder
+            //    .HasOne(s => s.Group)
+            //    .WithMany(g => g.Students)
+            //    .HasForeignKey(s => s.GroupId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //builder
+            //    .HasMany(s => s.StudentSubjects)
+            //    .WithOne();
         }
     }
 }

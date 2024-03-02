@@ -7,6 +7,7 @@ namespace Int20h.DAL.Entities
         public string Name { get; set; }
         public ICollection<StudentInformation> Students { get; set; }
         public TeacherInformation Mentor { get; set; }
+        public Guid MentorId { get; set; }
         public int Year { get; set; }
     }
 }
