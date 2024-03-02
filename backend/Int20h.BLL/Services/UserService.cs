@@ -10,20 +10,17 @@ using Int20h.DAL.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Role = Int20h.DAL.Entities.Role;
 
 namespace Int20h.BLL.Services;
 
 public class UserService : BaseService, IUserService
 {
 	private readonly IAzureBlobStorageService _azureBlobStorageService;
-	private readonly RoleManager<Role> _roleManager;
 	private readonly UserManager<User> _userManager;
 
-	public UserService(ApplicationDbContext context, IMapper mapper, IAzureBlobStorageService azureBlobStorageService, RoleManager<Role> roleManager, UserManager<User> userManager) : base(context, mapper)
+	public UserService(ApplicationDbContext context, IMapper mapper, IAzureBlobStorageService azureBlobStorageService, UserManager<User> userManager) : base(context, mapper)
 	{
 		_azureBlobStorageService = azureBlobStorageService;
-		_roleManager = roleManager;
 		_userManager = userManager;
 	}
 
@@ -125,7 +122,7 @@ public class UserService : BaseService, IUserService
 			return new Response<UserDto>(_mapper.Map<UserDto>(user), "You have confirmed role succesfully");
 		}
 
-		var teacher = await _context.TeacherInformations.FirstOrDefaultAsync(s => s.Id == user.Id);
+		var teacher = await _context.TeacherInformations.FirstOrDefaultAsync(t => t.UserId == user.Id);
 
 		if (teacher != null)
 		{

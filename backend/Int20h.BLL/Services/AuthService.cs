@@ -16,14 +16,12 @@ namespace Int20h.BLL.Services;
 public class AuthService : BaseService, IAuthService
 {
 	private readonly UserManager<User> _userManager;
-	private readonly RoleManager<Role> _roleManager;
 	private readonly ITokenService _tokenService;
 
 	public AuthService(ApplicationDbContext context, IMapper mapper, UserManager<User> userManager, 
-		RoleManager<Role> roleManager, ITokenService tokenService) : base(context, mapper)
+		ITokenService tokenService) : base(context, mapper)
 	{
 		_userManager = userManager;
-		_roleManager = roleManager;
 		_tokenService = tokenService;
 	}
 	public async Task<Response<UserDto>> SignUpAsync(SignUpUserDto userDto)
@@ -58,6 +56,7 @@ public class AuthService : BaseService, IAuthService
 				UserId = user.Id,
 				GroupId = group.Id
 			};
+			await _context.StudentInformations.AddAsync(studentInformation);
 		}
         else
         {
@@ -67,7 +66,8 @@ public class AuthService : BaseService, IAuthService
 				UpdatedAt = DateTime.Now,
 				UserId = user.Id
 			};
-        }
+			await _context.TeacherInformations.AddAsync(teacherInformation);
+		}
 		await _context.SaveChangesAsync();
 
         var userResponse = _mapper.Map<UserDto>(user);
