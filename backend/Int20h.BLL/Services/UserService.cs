@@ -23,7 +23,7 @@ public class UserService : BaseService, IUserService
         throw new NotImplementedException();
     }
 
-    public Task<Response<bool>> DeleteUser(Guid userId)
+    public Task<Response> DeleteUser(Guid userId)
     {
         throw new NotImplementedException();
     }

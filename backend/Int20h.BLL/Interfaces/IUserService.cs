@@ -8,7 +8,7 @@ namespace Int20h.BLL.Interfaces;
 public interface IUserService
 {
     Task<Response<UserDto>> UpdateUser(EditUserDto userDto);
-    Task<Response<bool>> DeleteUser(Guid userId);
+    Task<Response> DeleteUser(Guid userId);
     Task<Response<UserDto>> UpdatePhoto(IFormFile file, Guid userId);
     Task<Response<UserDto>> DeletePhoto(FileDto fileDto, Guid userId);
 }
