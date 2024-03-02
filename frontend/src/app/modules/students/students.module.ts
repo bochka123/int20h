@@ -6,4 +6,6 @@ import { StudentsRoutingModule } from "./students-routing.module";
     declarations: [StudentsPageComponent],
     imports: [StudentsRoutingModule],
 })
-export class StudentsModule {}
+export class StudentsModule {
+
+}
