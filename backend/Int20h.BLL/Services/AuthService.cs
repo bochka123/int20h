@@ -24,9 +24,10 @@ public class AuthService : BaseService, IAuthService
 	private readonly JwtOptionsHelper _jwtOptionsHelper;
 	private readonly UserManager<User> _userManager;
 	private readonly RoleManager<Role> _roleManager;
+	private readonly ITokenService _tokenService;
 
 	public AuthService(ApplicationDbContext context, IMapper mapper, IOptions<JwtOptionsHelper> jwtOptionsHelper,
-		UserManager<User> userManager, RoleManager<Role> roleManager) : base(context, mapper)
+		UserManager<User> userManager, RoleManager<Role> roleManager, ITokenService tokenService) : base(context, mapper)
 	{
 		_jwtOptionsHelper = jwtOptionsHelper.Value;
 		_userManager = userManager;
