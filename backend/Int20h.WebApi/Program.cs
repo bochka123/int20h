@@ -1,5 +1,3 @@
-//using FluentValidation.AspNetCore;
-using Int20h.DAL.Interfaces;
 using Int20h.WebApi.Extensions;
 using Int20h.WebAPI.Extensions;
 
@@ -13,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterCustomServices(builder.Configuration);
 builder.Services.AddCustomAutoMapperProfiles();
+builder.Services.RegisterAzureConfiguration(builder.Configuration);
 builder.Services.AddFluentValidation();
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
