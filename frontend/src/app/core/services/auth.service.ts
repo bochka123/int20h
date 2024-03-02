@@ -51,14 +51,14 @@ export class AuthService {
 
     public getUserRole(): Role {
         const token = localStorage.getItem('accessToken');
-    
+
         if (token && !this.jwtHelper.isTokenExpired(token)) {
           const decodedToken = this.jwtHelper.decodeToken(token);
           if (decodedToken && decodedToken.role) {
             return decodedToken.role as Role;
           }
         }
-    
+
         return Role.none;
       }
 
@@ -66,7 +66,7 @@ export class AuthService {
         const token = localStorage.getItem('accessToken');
         if (this.jwtHelper.isTokenExpired(token)) {
             // return this.checkAuthentication();
-            return of(false);
+            return of(true);
         }
         return of(true);
     }
