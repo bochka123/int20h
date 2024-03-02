@@ -1,3 +1,5 @@
+import { RegisterRoles } from "@shared/data/register-roles";
+
 export interface IUser {
     firstName: string;
     lastName: string;
@@ -5,6 +7,7 @@ export interface IUser {
     password?: string;
     phone?: string;
     avatarUrl? : string;
+    role?: RegisterRoles;
 }
 
 export interface IAccessToken {

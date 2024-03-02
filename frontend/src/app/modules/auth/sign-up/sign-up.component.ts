@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { matchpassword } from '@core/validators/matchpassword.validator';
@@ -7,6 +7,12 @@ import { IUser } from '../../../models/IUser';
 import { Router } from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
 import {ModalComponent} from "@shared/components/modal/modal.component";
+import { RegisterRoles } from '@shared/data/register-roles';
+
+type OptionType = {
+    name: string, 
+    value: number,
+}
 
 @Component({
     selector: 'app-sign-up',
@@ -14,12 +20,24 @@ import {ModalComponent} from "@shared/components/modal/modal.component";
     styleUrls: ['../auth-common-styles.scss'],
 })
 export class SignUpComponent {
+    registerRoles: OptionType[] = [
+        {
+            name: 'Student',
+            value: RegisterRoles.Student,
+        },
+        {
+            name: 'Teacher',
+            value: RegisterRoles.Teacher,
+        }
+    ];
+
     firstNameError: string;
     lastNameError: string;
     emailError: string;
     mobilePhoneError: string;
     passwordError: string;
     passwordConfirmationError: string;
+    roleError: string;
 
     registerForm = new FormGroup(
         {
@@ -47,6 +65,10 @@ export class SignUpComponent {
                 validators: [Validators.required],
                 updateOn: 'submit',
             }),
+            role: new FormControl('', {
+                validators: [Validators.required],
+                updateOn: 'submit',
+            }),
         },
         {
             validators: matchpassword,
@@ -59,6 +81,7 @@ export class SignUpComponent {
         email: '',
         password: '',
         phone: '',
+        role: undefined,
     };
 
     constructor(
@@ -85,6 +108,7 @@ export class SignUpComponent {
         this.passwordError = '';
         this.passwordConfirmationError = '';
         this.mobilePhoneError = '';
+        this.roleError = '';
     }
 
     private checkErrors() {
@@ -109,6 +133,7 @@ export class SignUpComponent {
             ? ''
             : 'The password must be between 6 and 25 characters long, contain uppercase and lowercase letters, and one of the characters @$!%*?&. or a number';
         this.passwordConfirmationError = password === passwordConfirmation ? '' : 'Password did not match';
+        this.roleError = 'Role is required';
     }
 
     private validateForm() {
@@ -121,29 +146,31 @@ export class SignUpComponent {
         this.user.email = this.email.value;
         this.user.phone = this.mobilePhone.value;
         this.user.password = this.password.value;
-        this.authService.signUp(this.user).subscribe(
-            (result) => {
-                this.dialog.open(ModalComponent, {
-                    data: {
-                        header: 'Success',
-                        content: (result as any).message,
-                    },
-                });
-                const token = (result as any).value.accessToken;
-                const user = (result as any).value;
-                localStorage.setItem('accessToken', token);
-                localStorage.setItem('user', JSON.stringify(user));
-                this.router.navigate(['/']);
-            },
-            (error) => {
-                this.dialog.open(ModalComponent, {
-                    data: {
-                        header: 'Error',
-                        content: (error.error as any).message,
-                    },
-                });
-            },
-        );
+        console.log(this.user);
+        
+        // this.authService.signUp(this.user).subscribe(
+        //     (result) => {
+        //         this.dialog.open(ModalComponent, {
+        //             data: {
+        //                 header: 'Success',
+        //                 content: (result as any).message,
+        //             },
+        //         });
+        //         const token = (result as any).value.accessToken;
+        //         const user = (result as any).value;
+        //         localStorage.setItem('accessToken', token);
+        //         localStorage.setItem('user', JSON.stringify(user));
+        //         this.router.navigate(['/']);
+        //     },
+        //     (error) => {
+        //         this.dialog.open(ModalComponent, {
+        //             data: {
+        //                 header: 'Error',
+        //                 content: (error.error as any).message,
+        //             },
+        //         });
+        //     },
+        // );
     }
 
     get firstName(): FormControl {
@@ -168,5 +195,9 @@ export class SignUpComponent {
 
     get passwordConfirmation(): FormControl {
         return this.registerForm.get('passwordConfirmation') as FormControl;
+    }
+
+    get role(): FormControl {
+        return this.registerForm.get('role') as FormControl;
     }
 }

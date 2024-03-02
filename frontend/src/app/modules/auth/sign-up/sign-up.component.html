@@ -35,6 +35,13 @@
       </div>
       <app-error *ngIf="passwordConfirmationError" [text]="passwordConfirmationError"></app-error>
     </div>
+    <div>
+      <select id="role" formControlName="role">
+        <option value="" disabled selected>-- Select role --</option>
+        <option *ngFor="let role of registerRoles" [ngValue]="role.value">{{ role.name }}</option>
+      </select>
+      <app-error *ngIf="roleError" [text]="roleError"></app-error>
+    </div>
     <div class="buttons">
       <input type="submit" value="Create Account">
       <input type="reset" value="Clear" (click)="clearErrors()">
