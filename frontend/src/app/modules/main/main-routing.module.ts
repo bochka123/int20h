@@ -13,6 +13,22 @@ const routes: Routes = [
         path: '',
         component: MainContentComponent,
       },
+      {
+        path: 'students',
+        pathMatch: 'prefix',
+        loadChildren: () =>
+          import('../students/students.module').then(
+            (m) => m.StudentsModule
+          ),
+      },
+      {
+        path: 'tests',
+        pathMatch: 'prefix',
+        loadChildren: () =>
+          import('../tests/tests.module').then(
+            (m) => m.TestsModule
+          ),
+      },
     ],
   },
 ];

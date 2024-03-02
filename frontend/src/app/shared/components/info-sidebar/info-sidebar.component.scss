@@ -1,0 +1,30 @@
+@import "src/styles/colors";
+
+aside {
+  width: 250px;
+  padding: 20px;
+  box-shadow: 0 0 20px $gray-200;
+  border-radius: 0 20px 20px 0;
+  div {
+    margin-bottom: 1px;
+    border-radius: 10px;
+  }
+}
+
+.sidebar-link {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+}
+
+.sidebar-link:hover {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.activated {
+  color: black; //TODO change color later
+}

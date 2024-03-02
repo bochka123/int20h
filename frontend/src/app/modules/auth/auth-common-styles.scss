@@ -23,14 +23,11 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
 
     & > div {
         width: 60%;
     }
-}
-
-div {
-    margin-bottom: 15px;
 }
 
 input {
@@ -73,3 +70,19 @@ input {
     justify-content: space-between;
     flex-direction: row;
 }
+
+p.authentication-link {
+    color: $black-100;
+    text-align: center;
+    padding: 20px 0;
+    @include body2-font;
+  
+    a {
+      color: $blue-100;
+      text-decoration: none;
+  
+      &:hover {
+        color: $blue-300;
+      }
+    }
+  }

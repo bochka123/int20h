@@ -1,16 +1,16 @@
 <div class="header-wrp">
   <div class="header-content" [routerLink]="['/']">
     <div class="title">
-      <img src="favicon.ico"  alt="title"/>
-      <span>Auction_pafosna_nazva</span>
+      <img src="assets/images/icon/icon.svg"  alt="title"/>
+      <span>StudentHUB</span>
     </div>
   </div>
   <div class="header-content">
-    <span>The coolest platform for auctions!</span>
+    <span>Almost KPI Campus!</span>
   </div>
 
   <div class="login-block header-content" *ngIf = "!currentUser">
-    <button class="authorize-btn" [routerLink]="['/auth']">Authorize</button>
+    <button class="authorize-btn" [routerLink]="['/auth/sign-in']">Authorize</button>
   </div>
 
   <div class="account-block header-content" *ngIf="currentUser" >
