@@ -8,6 +8,7 @@ import { Observable, map, of, ObservedValueTupleFromArray } from 'rxjs';
 import { HttpService } from './http.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IAccessToken, IUser } from '../../models/IUser';
+import { Role } from '@shared/data/roles';
 
 @Injectable({
     providedIn: 'root',
@@ -47,6 +48,19 @@ export class AuthService {
 
         return '';
     }
+
+    public getUserRole(): Role {
+        const token = localStorage.getItem('accessToken');
+    
+        if (token && !this.jwtHelper.isTokenExpired(token)) {
+          const decodedToken = this.jwtHelper.decodeToken(token);
+          if (decodedToken && decodedToken.role) {
+            return decodedToken.role as Role;
+          }
+        }
+    
+        return Role.none;
+      }
 
     public isAuthenticated(): Observable<boolean> {
         const token = localStorage.getItem('accessToken');

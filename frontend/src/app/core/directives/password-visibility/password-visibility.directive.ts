@@ -15,11 +15,11 @@ export class PasswordVisibilityDirective {
         if (this.isShown) {
             this.el.nativeElement.setAttribute('type', 'text');
             span.innerHTML =
-                '<img src="../../../../assets/images/password-visibility/opened-eye.svg" alt="opened-eye"/>';
+                '<img src="assets/images/password-visibility/opened-eye.svg" alt="opened-eye"/>';
         } else {
             this.el.nativeElement.setAttribute('type', 'password');
             span.innerHTML =
-                '<img src="../../../../assets/images/password-visibility/closed-eye.svg" alt="closed-eye"/>';
+                '<img src="assets/images/password-visibility/closed-eye.svg" alt="closed-eye"/>';
         }
     }
 
@@ -27,7 +27,7 @@ export class PasswordVisibilityDirective {
         const parent = this.el.nativeElement.parentNode;
         const span = document.createElement('span');
 
-        span.innerHTML = '<img src="../../../../assets/images/password-visibility/closed-eye.svg" alt="closed-eye"/>';
+        span.innerHTML = '<img src="assets/images/password-visibility/closed-eye.svg" alt="closed-eye"/>';
         span.style.position = 'absolute';
         span.style.right = '15px';
         span.style.top = '60%';
