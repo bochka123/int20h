@@ -14,7 +14,7 @@ export class InfoSidebar implements OnInit {
 
   constructor(authService: AuthService) {
     this.userRole = authService.getUserRole();
-    this.userRole = Role.student;
+    this.userRole = Role.teacher;
   }
 
   ngOnInit(): void {
