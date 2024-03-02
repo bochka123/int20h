@@ -60,6 +60,9 @@ export class AuthService {
 
     public isAuthenticated(): Observable<boolean> {
         const token = localStorage.getItem('accessToken');
+        
+        if(!token) return of(false);
+
         if (this.jwtHelper.isTokenExpired(token)) {
             return this.checkAuthentication();
         }
@@ -71,7 +74,7 @@ export class AuthService {
     }
 
     hasAnyRole(roles: Role[]): boolean {
-        const userRoles = [Role.admin, Role.teacher, Role.user]; 
+        const userRoles = [Role.admin, Role.teacher, Role.student]; 
         return roles.some(role => userRoles.includes(role));
     }
 
