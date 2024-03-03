@@ -21,4 +21,13 @@ public class StudentService : BaseService, IStudentService
 
 		return new Response<List<StudentDto>>(_mapper.Map<List<StudentDto>>(students));
 	}
+
+	public async Task<Response<StudentDto>> GetStudentById(Guid id)
+	{
+		var student = await _context.StudentInformations
+			.Include(s => s.User)
+			.FirstOrDefaultAsync(s => s.Id == id);
+
+		return new Response<StudentDto>(_mapper.Map<StudentDto>(student));
+	}
 }

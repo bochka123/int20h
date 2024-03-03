@@ -59,9 +59,9 @@ export class StudentsPageComponent {
       });
   }
 
-  public NavigateToStudentPage(e: MouseEvent) {
+  public NavigateToStudentPage(e: MouseEvent, id?: string) {
     if ((e.target as HTMLElement).tagName.toLowerCase() !== 'button') {
-      this.router.navigate(['2'], { relativeTo: this.route });
+      this.router.navigate([`${id}`], { relativeTo: this.route });
     }
   }
 }

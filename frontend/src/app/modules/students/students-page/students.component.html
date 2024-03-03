@@ -13,7 +13,7 @@
 </div>
 
 <div class="block">
-  <div *ngFor="let student of students" class="student-info" (click)="NavigateToStudentPage($event)">
+  <div *ngFor="let student of students" class="student-info" (click)="NavigateToStudentPage($event, student?.id)">
     <div>
       {{student.user.firstName}} {{student.user.lastName}}
       <span [class]="student.isVerified ? 'hide':''">Not Verified</span>

@@ -28,4 +28,17 @@ public class StudentController : ControllerBase
 
 		return BadRequest(response);
 	}
+
+	[HttpGet("{id}")]
+	public async Task<ActionResult> GetById(Guid id)
+	{
+		var response = await _studentService.GetStudentById(id);
+
+		if (response.Status == Status.Success)
+		{
+			return Ok(response);
+		}
+
+		return BadRequest(response);
+	}
 }
