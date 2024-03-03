@@ -17,6 +17,7 @@ export interface ICreateUser {
     password?: string;
     phone?: string;
     role?: RegisterRoles | null;
+    group?: string | null;
 }
 
 export interface IAccessToken {

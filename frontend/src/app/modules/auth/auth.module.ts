@@ -12,7 +12,7 @@ import { CommonModule, NgIf } from '@angular/common';
 
 @NgModule({
     declarations: [AuthPageComponent, SignInComponent, SignUpComponent],
-    imports: [AuthRoutingModule, SharedModule, FormsModule, DirectivesModule, ReactiveFormsModule, NgIf, CommonModule],
+    imports: [AuthRoutingModule, SharedModule, FormsModule, DirectivesModule, ReactiveFormsModule, NgIf, CommonModule, ReactiveFormsModule],
     providers: [AuthGuard, { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
 })
 export class AuthModule {}
