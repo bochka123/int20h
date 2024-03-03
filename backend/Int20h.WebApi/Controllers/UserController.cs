@@ -10,7 +10,7 @@ namespace Int20h.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
+//[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -74,4 +74,17 @@ public class UserController : ControllerBase
 
         return BadRequest("No file url.");
     }
+
+	[HttpPost("confirmUserRole")]
+	public async Task<ActionResult> ConfirmUserRole([FromBody] ConfirmUserRoleDto userDto)
+	{
+		var response = await _userService.ConfirmUserRole(userDto);
+
+		if (response.Status == Status.Success)
+		{
+			return NoContent();
+		}
+
+		return BadRequest(response);
+	}
 }
