@@ -25,6 +25,11 @@ export const userSidebarInfo: IUserSidebarInfo[] = [
       availableRoles: [Role.admin],
       route: 'groups/create-subject',
       name: 'Create Subject',
+    },
+    {
+      availableRoles: [Role.admin],
+      route: 'teachers',
+      name: 'Teachers',
     }
 ]
 

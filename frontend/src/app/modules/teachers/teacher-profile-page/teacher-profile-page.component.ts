@@ -13,14 +13,16 @@ import { ModalComponent } from '@shared/components/modal/modal.component';
 import { ActivatedRoute, Route } from '@angular/router';
 import { IStudentInformation } from 'src/app/models/IStudentInformation';
 import { StudentService } from '@core/services/student.service';
+import { ITeacherInformation } from 'src/app/models/ITeacherInformation';
+import { TeacherService } from '@core/services/teacher.service';
 
 @Component({
   selector: 'app-student-profile-page',
-  templateUrl: 'student-profile-page.component.html',
-  styleUrls: ['student-profile-page.component.scss'],
+  templateUrl: 'teacher-profile-page.component.html',
+  styleUrls: ['teacher-profile-page.component.scss'],
 })
-export class StudentProfilePageComponent {
-  student: IStudentInformation;
+export class TeacherProfilePageComponent {
+  teacher: ITeacherInformation;
 
   firstNameError: string;
   lastNameError: string;
@@ -68,19 +70,19 @@ export class StudentProfilePageComponent {
     private dialog: MatDialog,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private studentService: StudentService
+    private teacherService: TeacherService
   ) {
     route.params.subscribe((params) => {
-      studentService.getStudentById(params['id']).subscribe((res) => {
-        if (res?.value) this.student = res.value;
+      teacherService.getTeacherById(params['id']).subscribe((res) => {
+        if (res?.value) this.teacher = res.value;
       });
     });
   }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.studentService.getStudentById(params['id']).subscribe((res) => {
-        if (res?.value) this.student = res.value;
+      this.teacherService.getTeacherById(params['id']).subscribe((res) => {
+        if (res?.value) this.teacher = res.value;
         this.user.firstName = res?.value?.user?.firstName || '';
         this.user.lastName = res?.value?.user?.lastName || '';
         this.user.email = res?.value?.user?.email;

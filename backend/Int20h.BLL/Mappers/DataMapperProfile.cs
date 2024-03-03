@@ -20,6 +20,7 @@ namespace Int20h.BLL.Mappers
 			ConfigureTestMapper();
 			ConfigureStudentMapper();
 			ConfigureTests();
+			ConfigureTeacherMapper();
 		}
 
 		private void ConfigureUserMapper()
@@ -83,6 +84,11 @@ namespace Int20h.BLL.Mappers
 		private void ConfigureStudentMapper()
 		{
 			CreateMap<StudentDto, StudentInformation>().ReverseMap();
+		}
+
+		private void ConfigureTeacherMapper()
+		{
+			CreateMap<TeacherDto, TeacherInformation>().ReverseMap();
 		}
 	}
 }
