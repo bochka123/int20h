@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {IQuestionDto} from "../../../models/IQuestionDto";
 
 @Component({
   selector: 'app-student-profile-page',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./tests-page.component.scss']
 })
 export class TestsPageComponent {
+  questions: IQuestionDto[]
 
 }
