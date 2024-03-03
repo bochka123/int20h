@@ -47,43 +47,42 @@ export class SignUpComponent {
     isStudent: boolean;
 
     registerForm = new FormGroup(
-        {
-            email: new FormControl('', {
-                validators: [Validators.required, Validators.maxLength(50), Validators.pattern(emailFormatRegex)],
-                updateOn: 'submit',
-            }),
-            firstName: new FormControl('', {
-                validators: [Validators.required, Validators.pattern(nameFormatRegex)],
-                updateOn: 'submit',
-            }),
-            lastName: new FormControl('', {
-                validators: [Validators.required, Validators.pattern(nameFormatRegex)],
-                updateOn: 'submit',
-            }),
-            mobilePhone: new FormControl('', {
-                validators: [Validators.required, Validators.pattern(mobilePhoneFormatRegex)],
-                updateOn: 'submit',
-            }),
-            password: new FormControl('', {
-                validators: [Validators.required, Validators.pattern(passFormatRegex)],
-                updateOn: 'submit',
-            }),
-            passwordConfirmation: new FormControl('', {
-                validators: [Validators.required],
-                updateOn: 'submit',
-            }),
-            role: new FormControl('', {
-                validators: [Validators.required],
-                updateOn: 'change',
-            }),
-            group: new FormControl('', {
-                validators: [Validators.required],
-                updateOn: 'change',
-            }),
-        },
-        {
-            validators: matchpassword,
-        },
+      {
+        email: new FormControl('', {
+          validators: [Validators.required, Validators.maxLength(50), Validators.pattern(emailFormatRegex)],
+          updateOn: 'submit',
+        }),
+        firstName: new FormControl('', {
+          validators: [Validators.required, Validators.pattern(nameFormatRegex)],
+          updateOn: 'submit',
+        }),
+        lastName: new FormControl('', {
+          validators: [Validators.required, Validators.pattern(nameFormatRegex)],
+          updateOn: 'submit',
+        }),
+        mobilePhone: new FormControl('', {
+          validators: [Validators.required, Validators.pattern(mobilePhoneFormatRegex)],
+          updateOn: 'submit',
+        }),
+        password: new FormControl('', {
+          validators: [Validators.required, Validators.pattern(passFormatRegex)],
+          updateOn: 'submit',
+        }),
+        passwordConfirmation: new FormControl('', {
+          validators: [Validators.required],
+          updateOn: 'submit',
+        }),
+        role: new FormControl('', {
+          validators: [Validators.required],
+          updateOn: 'change',
+        }),
+        group: new FormControl('', {
+          updateOn: 'change',
+        }),
+      },
+      {
+        validators: matchpassword,
+      },
     );
 
     user: ICreateUser = {
@@ -102,7 +101,9 @@ export class SignUpComponent {
         private router: Router,
         groupService: GroupsService,
     ) {
-        groupService.getAllGroups({}).subscribe(res => this.groups = res);
+        groupService.getAllGroups({}).subscribe(res => {
+          this.groups = res
+        });
     }
 
     public RoleChanged() {
@@ -131,28 +132,28 @@ export class SignUpComponent {
     }
 
     private checkErrors() {
-        const firstName = this.firstName.value;
-        const lastName = this.lastName.value;
-        const email = this.email.value;
-        const mobilePhone = this.mobilePhone.value;
-        const password = this.password.value;
-        const passwordConfirmation = this.passwordConfirmation.value;
-        const nameRegex = /^([a-zA-Z-]){2,25}$/;
-        const emailRegex =
-            /^([a-zA-Z-]+([a-zA-Z0-9_.]+)?)@[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*$/;
-        const mobilePhoneRegex = /^[0-9]{10}$/;
-        const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&0-9]).{6,25}$/;
-        this.firstNameError =
-            firstName !== null && nameRegex.test(firstName) ? '' : 'First name must be Latin from 2 to 25 characters';
-        this.lastNameError =
-            lastName !== null && nameRegex.test(lastName) ? '' : 'Last name must be Latin from 2 to 25 characters';
-        this.emailError = emailRegex.test(email) ? '' : 'You entered not valid email';
-        this.mobilePhoneError = mobilePhoneRegex.test(mobilePhone) ? '' : 'Mobile phone must consist of 10 digits';
-        this.passwordError = passRegex.test(password)
-            ? ''
-            : 'The password must be between 6 and 25 characters long, contain uppercase and lowercase letters, and one of the characters @$!%*?&. or a number';
-        this.passwordConfirmationError = password === passwordConfirmation ? '' : 'Password did not match';
-        this.roleError = 'Role is required';
+      const firstName = this.firstName.value;
+      const lastName = this.lastName.value;
+      const email = this.email.value;
+      const mobilePhone = this.mobilePhone.value;
+      const password = this.password.value;
+      const passwordConfirmation = this.passwordConfirmation.value;
+      const nameRegex = /^([a-zA-Z-]){2,25}$/;
+      const emailRegex =
+        /^([a-zA-Z-]+([a-zA-Z0-9_.]+)?)@[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*$/;
+      const mobilePhoneRegex = /^[0-9]{10}$/;
+      const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&0-9]).{6,25}$/;
+      this.firstNameError =
+        firstName !== null && nameRegex.test(firstName) ? '' : 'First name must be Latin from 2 to 25 characters';
+      this.lastNameError =
+        lastName !== null && nameRegex.test(lastName) ? '' : 'Last name must be Latin from 2 to 25 characters';
+      this.emailError = emailRegex.test(email) ? '' : 'You entered not valid email';
+      this.mobilePhoneError = mobilePhoneRegex.test(mobilePhone) ? '' : 'Mobile phone must consist of 10 digits';
+      this.passwordError = passRegex.test(password)
+        ? ''
+        : 'The password must be between 6 and 25 characters long, contain uppercase and lowercase letters, and one of the characters @$!%*?&. or a number';
+      this.passwordConfirmationError = password === passwordConfirmation ? '' : 'Password did not match';
+      this.roleError = !this.role.valid ? 'Role is required' : '';
     }
 
     private validateForm() {

@@ -41,4 +41,17 @@ public class GroupController : ControllerBase
 
         return BadRequest(response);
     }
+
+    [HttpPost("GetUserGroups")]
+    public async Task<ActionResult> GetUserGroups([FromBody] GetUserGroupsDto getUserGroupsDto)
+    {
+        var response = await _groupService.GetUserGroups(getUserGroupsDto.UserEmail);
+
+        if (response.Status == Status.Success)
+        {
+            return Ok(response);
+        }
+
+        return BadRequest(response);
+    }
 }
