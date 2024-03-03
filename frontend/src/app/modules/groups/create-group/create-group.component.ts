@@ -8,7 +8,7 @@ import {ModalComponent} from "@shared/components/modal/modal.component";
 @Component({
   selector: 'app-create-group',
   templateUrl: './create-group.component.html',
-  styleUrls: ['./create-group.component.scss']
+  styleUrls: ['../create-group-subject.styles.scss']
 })
 export class CreateGroupComponent {
   createGroupForm = new FormGroup({
