@@ -43,7 +43,8 @@ public static class ServiceCollectionExtensions
 		services.ConfigureIdentity(configuration);
         services.AddScoped<IMigrationHelper, MigrationHelper>();
         services.AddScoped<IAuthService, AuthService>();
-        services.AddTransient<IAzureBlobStorageService, AzureBlobStorageService>();
+        services.AddScoped<IStudentService, StudentService>();
+		services.AddTransient<IAzureBlobStorageService, AzureBlobStorageService>();
         services.AddScoped<IUserService, UserService>();
 		services.AddScoped<ITokenService, TokenService>();
         services.AddTransient<IGroupService, GroupService>();

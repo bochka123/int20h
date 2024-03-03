@@ -9,7 +9,6 @@ using Int20h.Common.Response;
 using Int20h.DAL.Context;
 using Int20h.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
-using Role = Int20h.DAL.Entities.Role;
 
 namespace Int20h.BLL.Services;
 
