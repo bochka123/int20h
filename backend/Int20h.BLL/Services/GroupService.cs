@@ -2,6 +2,7 @@
 using Int20h.BLL.Interfaces;
 using Int20h.BLL.Services.Abstract;
 using Int20h.Common.Dtos.Group;
+using Int20h.Common.Request;
 using Int20h.Common.Response;
 using Int20h.DAL.Context;
 using Int20h.DAL.Entities;
@@ -13,9 +14,11 @@ namespace Int20h.BLL.Services;
 public class GroupService : BaseService, IGroupService
 {
     private readonly UserManager<User> _userManager;
-    public GroupService(UserManager<User> userManager, ApplicationDbContext context, IMapper mapper) : base(context, mapper)
+    private readonly IPagingService _pagingService;
+    public GroupService(IPagingService pagingService, UserManager<User> userManager, ApplicationDbContext context, IMapper mapper) : base(context, mapper)
     {
         _userManager = userManager;
+        _pagingService = pagingService;
     }
 
     public async Task<Response<GroupDto>> CreateGroup(CreateGroupDto createGroupDto)
@@ -46,8 +49,8 @@ public class GroupService : BaseService, IGroupService
         return new Response<GroupDto>(groupResponse, "Group was created successfuly!");
     }
 
-    public Task<Response<List<GroupDto>>> GetAllGroups()
+    public async Task<PageResponse<IEnumerable<GroupDto>>> GetAllGroups(GetRequest getRequest)
     {
-        throw new NotImplementedException();
+        return await _pagingService.ApplyPaging<Group, GroupDto>(_context.Groups, getRequest);
     }
 }

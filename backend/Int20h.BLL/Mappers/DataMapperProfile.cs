@@ -29,6 +29,9 @@ namespace Int20h.BLL.Mappers
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
 				.ReverseMap();
 
+			CreateMap<CreateGroupDto, Group>().ReverseMap();
+			CreateMap<Group, GroupDto>().ReverseMap();
+
 			CreateMap<CreateTestDto, Test>();
 			CreateMap<Test, TestDto>();
         }
