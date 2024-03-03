@@ -57,6 +57,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IQuestionService, QuestionService>();
         services.RegisterQueryCraft();
         services.AddTransient<IPagingService, PagingService>();
+        services.AddTransient<ISessionService, SessionService>();
 	}
 
     public static void AddCustomAutoMapperProfiles(this IServiceCollection services)
