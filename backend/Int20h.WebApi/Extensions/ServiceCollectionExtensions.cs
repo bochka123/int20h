@@ -52,6 +52,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ISubjectService, SubjectService>();
         services.AddScoped<ICredentialService, CredentialService>();
         services.AddTransient<ITestService, TestService>();
+        services.AddTransient<IAdminService, AdminService>();
         services.AddTransient<IQuestionService, QuestionService>();
         services.RegisterQueryCraft();
         services.AddTransient<IPagingService, PagingService>();

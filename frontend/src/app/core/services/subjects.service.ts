@@ -9,7 +9,7 @@ import {ISubject} from "../../models/ISubject";
 export class SubjectsService {
   controllerUrl: string;
   constructor(private httpService: HttpService) {
-    this.controllerUrl = 'api/group';
+    this.controllerUrl = 'api/subject';
   }
 
   createSubject(subject: ISubject){
