@@ -38,7 +38,7 @@ public class StudentService : BaseService, IStudentService
 		return new Response<StudentDto>(_mapper.Map<StudentDto>(student));
 	}
 
-    public async Task<Response<StudentDto>> PinStudentDto(PinStudentDto pinStudentDto)
+    public async Task<Response<StudentDto>> PinStudentToSubject(PinStudentDto pinStudentDto)
     {
         var user = await _userManager.FindByEmailAsync(pinStudentDto.Email);
 
