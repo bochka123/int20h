@@ -1,0 +1,42 @@
+<main>
+  <form (submit)="submitForm($event)" [formGroup]="updateForm">
+    <div>
+      <input placeholder="First Name" formControlName="firstName">
+      <app-error *ngIf="firstNameError" [text]="firstNameError"></app-error>
+    </div>
+    <div>
+      <input placeholder="Last Name" formControlName="lastName">
+      <app-error *ngIf="lastNameError" [text]="lastNameError"></app-error>
+    </div>
+    <div>
+      <input placeholder="Email" type="email" formControlName="email">
+      <app-error *ngIf="emailError" [text]="emailError"></app-error>
+    </div>
+    <div>
+      <input placeholder="Mobile Phone" type="tel" formControlName="mobilePhone">
+      <app-error *ngIf="mobilePhoneError" [text]="mobilePhoneError"></app-error>
+    </div>
+    <div class="buttons">
+      <input type="button" value="Delete Account" (click)="deleteAccount()">
+      <input type="submit" value="Save">
+    </div>
+  </form>
+</main>
+
+<div>
+  <div *ngFor="let subject of subjects" class="subject-block">
+    <h1>{{subject.name}}</h1>
+    <div class="panel">
+      <p>Lectures</p>
+      <p>{{subject.lections}}</p>
+    </div>
+    <div class="panel">
+      <p>Tests</p>
+      <p>{{subject.test}}</p>
+    </div>
+    <div class="panel">
+      <p>Mark</p>
+      <p>{{subject.mark}}</p>
+    </div>
+  </div>
+</div>
