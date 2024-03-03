@@ -18,6 +18,6 @@ export class TestsService {
     return  this.httpService.get(`${this.controllerUrl}?id=${id}`)
   }
   post(id: string, question: IQuestionDto): Observable<IQuestionDto>{
-    return this.httpService.post(`${this.controllerUrl}?id=${id}`, question);
+    return this.httpService.post(`${this.controllerUrl}/post?taskId=${id}`, question);
   }
 }
