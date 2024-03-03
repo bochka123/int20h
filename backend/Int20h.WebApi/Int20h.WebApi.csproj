@@ -29,7 +29,6 @@
     <ProjectReference Include="..\Int20h.BLL\Int20h.BLL.csproj" />
     <ProjectReference Include="..\Int20h.Common\Int20h.Common.csproj" />
     <ProjectReference Include="..\Int20h.DAL\Int20h.DAL.csproj" />
-    <ProjectReference Include="..\QueryCraft\QueryCraft.csproj" />
   </ItemGroup>
 
 </Project>

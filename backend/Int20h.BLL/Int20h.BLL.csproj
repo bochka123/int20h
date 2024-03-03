@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Int20h.DAL\Int20h.DAL.csproj" />
-    <ProjectReference Include="..\QueryCraft\QueryCraft.csproj" />
   </ItemGroup>
 
 </Project>
