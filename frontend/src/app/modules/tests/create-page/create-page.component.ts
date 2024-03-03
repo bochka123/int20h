@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ICreateTest} from "../../../models/ICreateTest";
-import {IQuestionDto, IQuestionOptionDto} from "../../../models/IQuestionDto";
-import {GroupsService} from "@core/services/groups.service";
-import {IGroup} from "../../../models/IGroup";
+import {TestsService} from "@core/services/test.service";
+import {ITestDto} from "../../../models/ITestDto";
+import {Router} from "@angular/router";
+import {SubjectsService} from "@core/services/subjects.service";
+import {ISubject} from "../../../models/ISubject";
 
 @Component({
   selector: 'app-create-page',
@@ -10,20 +12,22 @@ import {IGroup} from "../../../models/IGroup";
   styleUrls: ['./create-page.component.scss']
 })
 export class CreatePageComponent implements OnInit{
-  test: ICreateTest = { title: '', description: '', cost: 0, groupName: '' };
-  groups: string[] = [];
-  constructor( private groupService: GroupsService) {
+  test: ICreateTest = { title: '', description: '', cost: 0, subjectId: '' };
+  subjects: ISubject[] = [];
+  constructor( private subjectService: SubjectsService,
+               private testService: TestsService,
+               private router: Router) {
   }
 
   ngOnInit(): void {
-    this.groupService.getAllGroups({}).subscribe((res) => {
-      const groupsArray: IGroup[] = res.value as IGroup[];
-      this.groups = groupsArray.map((group) => group.name || '');
-
+    this.subjectService.getAllSubjects({}).subscribe((res) => {
+      this.subjects = res.value as ISubject[];
     });
   }
 
   createTest(): void {
-
+    this.testService.createTest(this.test).subscribe((res: any)=>{
+      this.router.navigateByUrl(`tests/test/${res.value.id}`)
+    })
   }
 }
