@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { matchpassword } from '@core/validators/matchpassword.validator';
 import { emailFormatRegex, mobilePhoneFormatRegex, nameFormatRegex, passFormatRegex } from '@core/utils/regex.util';
@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
 import { RegisterRoles } from '@shared/data/register-roles';
 import { ModalComponent } from '@shared/components/modal/modal.component';
+import { GroupsService } from '@core/services/groups.service';
+import { IFilterResponse } from 'src/app/models/IFilterResponse';
+import { IGroup } from 'src/app/models/IGroup';
+import { Subscription } from 'rxjs';
 
 type OptionType = {
     name: string,
@@ -38,6 +42,9 @@ export class SignUpComponent {
     passwordError: string;
     passwordConfirmationError: string;
     roleError: string;
+    groups: IFilterResponse<IGroup[]>;
+
+    isStudent: boolean;
 
     registerForm = new FormGroup(
         {
@@ -67,7 +74,11 @@ export class SignUpComponent {
             }),
             role: new FormControl('', {
                 validators: [Validators.required],
-                updateOn: 'submit',
+                updateOn: 'change',
+            }),
+            group: new FormControl('', {
+                validators: [Validators.required],
+                updateOn: 'change',
             }),
         },
         {
@@ -82,13 +93,21 @@ export class SignUpComponent {
         password: '',
         phone: '',
         role: null,
+        group: null,
     };
 
     constructor(
         private authService: AuthService,
         private dialog: MatDialog,
         private router: Router,
-    ) {}
+        groupService: GroupsService,
+    ) {
+        groupService.getAllGroups({}).subscribe(res => this.groups = res);
+    }
+
+    public RoleChanged() {
+        this.isStudent = this.role.value == RegisterRoles.Student;
+    }
 
     submitForm(event: SubmitEvent) {
         event.preventDefault();
@@ -147,6 +166,7 @@ export class SignUpComponent {
         this.user.phone = this.mobilePhone.value;
         this.user.password = this.password.value;
         this.user.role = this.role.value;
+        this.user.group = this.group.value;
 
         this.authService.signUp(this.user).subscribe(
             (result) => {
@@ -199,5 +219,9 @@ export class SignUpComponent {
 
     get role(): FormControl {
         return this.registerForm.get('role') as FormControl;
+    }
+
+    get group(): FormControl {
+        return this.registerForm.get('group') as FormControl;
     }
 }
