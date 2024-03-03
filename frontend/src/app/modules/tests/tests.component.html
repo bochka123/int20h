@@ -11,12 +11,12 @@
 </div>
 
 <div class="block">
-  <div class="student-info">
+  <div class="test-info" *ngFor="let test of tests">
     <div>
-      test
+      {{ test.title }}
     </div>
     <div class="control-buttons">
-      <button *ngIf="!isTeacherOrAdmin" class="blue-button" (click)="goToTest()">
+      <button *ngIf="!isTeacherOrAdmin" class="blue-button" (click)="goToTest(test.id)">
         Pass a test
       </button>
     </div>

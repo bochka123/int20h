@@ -16,7 +16,7 @@ const routes: Routes = [
     data: { roles: [Role.student, Role.teacher, Role.admin] }
   },
   {
-    path: 'test',
+    path: 'pass-test/:id',
     component: TestFromComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { roles: [Role.student, Role.teacher, Role.admin] }
@@ -24,14 +24,14 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreatePageComponent,
-    // canActivate: [AuthGuard, RoleGuard],
-    // data: {roles: [Role.teacher]}
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: [Role.teacher]}
   },
   {
     path: 'test/:id',
     component: CreateTasksPageComponent,
-    // canActivate: [AuthGuard, RoleGuard],
-    // data: {roles: [Role.teacher]}
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: [Role.teacher]}
   }
 ];
 
