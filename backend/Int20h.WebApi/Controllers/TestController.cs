@@ -9,7 +9,7 @@ namespace Int20h.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class TestController : ControllerBase
     {
         private readonly ITestService _testService;

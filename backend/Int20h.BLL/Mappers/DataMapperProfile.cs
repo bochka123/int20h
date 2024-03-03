@@ -1,8 +1,8 @@
 ﻿using Int20h.Common.Dtos.User;
 using Int20h.DAL.Entities;
 using AutoMapper;
-using Int20h.Common.Dtos.Group;
 using Int20h.Common.Dtos.Test;
+using Int20h.Common.Dtos.Question;
 
 namespace Int20h.BLL.Mappers
 {
@@ -31,6 +31,14 @@ namespace Int20h.BLL.Mappers
 
 			CreateMap<CreateTestDto, Test>();
 			CreateMap<Test, TestDto>();
+
+			CreateMap<QuestionDto, Question>();
+
+            CreateMap<Question, QuestionResponseDto>()
+				.ForMember(dest => dest.QuestionOptions, opt => opt.MapFrom(src => src.QuestionOptions.ToList()));
+
+            CreateMap<QuestionOption, QuestionOptionDto>();
+
         }
-	}
+    }
 }
