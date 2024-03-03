@@ -4,6 +4,7 @@ using AutoMapper;
 using Int20h.Common.Dtos.Group;
 using Int20h.Common.Dtos.Test;
 using Int20h.Common.Dtos.Subject;
+using Int20h.Common.Dtos.Student;
 
 namespace Int20h.BLL.Mappers
 {
@@ -12,6 +13,10 @@ namespace Int20h.BLL.Mappers
 		public DataMapperProfile()
 		{
 			ConfigureUserMapper();
+			ConfigureGroupMapper();
+			ConfigureSubjectMapper();
+			ConfigureTestMapper();
+			ConfigureStudentMapper();
 		}
 
 		private void ConfigureUserMapper()
@@ -29,6 +34,10 @@ namespace Int20h.BLL.Mappers
 			CreateMap<EditUserDto, User>()
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
 				.ReverseMap();
+        }
+
+		private void ConfigureGroupMapper()
+		{
 
 			CreateMap<CreateGroupDto, Group>().ReverseMap();
 			CreateMap<Group, GroupDto>().ReverseMap();
@@ -37,6 +46,25 @@ namespace Int20h.BLL.Mappers
 
 			CreateMap<CreateTestDto, Test>();
 			CreateMap<Test, TestDto>();
-        }
+		}
+
+		private void ConfigureSubjectMapper()
+		{
+			CreateMap<Subject, SubjectDto>().ReverseMap();
+
+			CreateMap<CreateTestDto, Test>();
+			CreateMap<Test, TestDto>();
+		}
+
+		private void ConfigureTestMapper()
+		{
+			CreateMap<CreateTestDto, Test>();
+			CreateMap<Test, TestDto>();
+		}
+
+		private void ConfigureStudentMapper()
+		{
+			CreateMap<StudentDto, StudentInformation>().ReverseMap();
+		}
 	}
 }
