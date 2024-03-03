@@ -27,4 +27,8 @@ export class UserService {
   deleteProfilePhoto(model: string) {
     return this.httpService.deleteNoId<string>(`${this.controllerUrl}/deletePhoto`, model);
   }
+
+  confirmUserRole(confirmDto: { email: string }) {
+    return this.httpService.post(`${this.controllerUrl}/confirmUserRole`, confirmDto)
+  }
 }

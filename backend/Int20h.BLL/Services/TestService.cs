@@ -26,13 +26,18 @@ namespace Int20h.BLL.Services
 
         public async Task<Response<TestDto>> Create(CreateTestDto testDto)
         {
-            var testE = _mapper.Map<Test>(testDto);
+            var subject = _context.Subjects.FirstOrDefault(x => x.Id == testDto.SubjectId);
+            if (subject == null)
+            {
+                return new Response<TestDto>(Status.Error, "No subject found!");
+            }
+            var test = _mapper.Map<Test>(testDto);
 
-            _context.Tests.Add(testE);
+            _context.Tests.Add(test);
 
-            var newTest = await _context.SaveChangesAsync();
+             await _context.SaveChangesAsync();
 
-            return new Response<TestDto>(_mapper.Map<TestDto>(newTest), "Test created successfully");
+            return new Response<TestDto>(_mapper.Map<TestDto>(test), "Test created successfully");
         }
         public async Task<Response<TestDto>> Edit(TestEditDto testDto)
         {

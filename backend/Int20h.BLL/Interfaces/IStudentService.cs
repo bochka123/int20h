@@ -5,5 +5,7 @@ namespace Int20h.BLL.Interfaces;
 
 public interface IStudentService
 {
-	Task<Response<List<StudentDto>>> GetAllStudents();
+	Task<Response<List<StudentDto>>> GetAllStudents(bool notVerified);
+	Task<Response<StudentDto>> GetStudentById(Guid id);
+	Task<Response<StudentDto>> PinStudentToSubject(PinStudentDto pinStudentDto);
 }

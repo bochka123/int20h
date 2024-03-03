@@ -59,4 +59,45 @@ public class SubjectService : BaseService, ISubjectService
     {
         return await _pagingService.ApplyPaging<Subject, SubjectDto>(_context.Subjects, getRequest);
     }
+
+    public async Task<Response<IEnumerable<SubjectDto>>> GetUserSubjects(string userEmail)
+    {
+        var user = await _userManager.FindByEmailAsync(userEmail);
+
+        if (user is null)
+        {
+            return new Response<IEnumerable<SubjectDto>>(Status.Error, "No such user!");
+        }
+
+        var student = await _context.StudentInformations.FirstOrDefaultAsync(s => s.UserId == user.Id);
+
+        if (student is not null)
+        {
+            var studentSubjects = await _context.StudentSubjects
+                .Include(studentSubject => studentSubject.Subject)
+                .Where(studentSubject => studentSubject.StudentId == student.Id)
+                .ToListAsync();
+
+            var subjectDtos = studentSubjects.Select(studentSubject => new SubjectDto
+            {
+                Id = studentSubject.Subject.Id,
+                Name = studentSubject.Subject.Name
+            }).ToList();
+
+            return new Response<IEnumerable<SubjectDto>>(subjectDtos);
+        }
+
+        var teacher = await _context.TeacherInformations.Include(t => t.Subjects).FirstOrDefaultAsync(s => s.UserId == user.Id);
+
+        if (teacher is not null)
+        {
+            var subjects = teacher.Subjects.ToList();
+
+            var subjectDtos = _mapper.Map<IEnumerable<Subject>, IEnumerable<SubjectDto>>(subjects);
+
+            return new Response<IEnumerable<SubjectDto>>(subjectDtos);
+        }
+
+        return new Response<IEnumerable<SubjectDto>>(new List<SubjectDto>());
+    }
 }

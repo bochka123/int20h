@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Int20h.BLL.Interfaces;
 using Int20h.BLL.Services.Abstract;
 using Int20h.Common.Dtos.Group;
@@ -25,7 +26,7 @@ public class GroupService : BaseService, IGroupService
     {
         var user = await _userManager.FindByEmailAsync(createGroupDto.MentorEmail);
 
-        if(user is null)
+        if (user is null)
         {
             return new Response<GroupDto>(Status.Error, "Teacher with this email does not exist!");
         }
@@ -52,5 +53,44 @@ public class GroupService : BaseService, IGroupService
     public async Task<PageResponse<IEnumerable<GroupDto>>> GetAllGroups(GetRequest getRequest)
     {
         return await _pagingService.ApplyPaging<Group, GroupDto>(_context.Groups, getRequest);
+    }
+
+    public async Task<Response<IEnumerable<GroupDto>>> GetUserGroups(string userEmail)
+    {
+        var user = await _userManager.FindByEmailAsync(userEmail);
+
+        if (user is null)
+        {
+            return new Response<IEnumerable<GroupDto>>(Status.Error, "No such user!");
+        }
+
+        var student = await _context.StudentInformations.Include(student => student.Group).FirstOrDefaultAsync(s => s.UserId == user.Id);
+
+        if (student is not null) 
+        {
+            var group = await _context.Groups.Where(group => group.Id == student.Group.Id).FirstOrDefaultAsync();
+
+            var groupDto = _mapper.Map<GroupDto>(group);
+
+            var groups = new List<GroupDto>
+            {
+                groupDto
+            };
+
+            return new Response<IEnumerable<GroupDto>>(groups);
+        }
+
+        var teacher = await _context.TeacherInformations.FirstOrDefaultAsync(s => s.UserId == user.Id);
+
+        if (teacher is not null)
+        {
+            var groups = await _context.Groups.Where(group => group.MentorId == teacher.Id).ToListAsync();
+
+            var groupDtos = _mapper.Map<IEnumerable<Group> ,IEnumerable <GroupDto>>(groups).ToList();
+
+            return new Response<IEnumerable<GroupDto>>(groupDtos);
+        }
+
+        return new Response<IEnumerable<GroupDto>>(new List<GroupDto>());
     }
 }

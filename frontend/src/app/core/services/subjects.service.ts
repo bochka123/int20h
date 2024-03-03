@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "@core/services/http.service";
-import {IGroup} from "../../models/IGroup";
 import {ISubject} from "../../models/ISubject";
+import { Observable } from 'rxjs';
+import { IResponseT } from 'src/app/models/IResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class SubjectsService {
 
   createSubject(subject: ISubject){
     return this.httpService.post(`${this.controllerUrl}`, subject);
+  }
+
+  getUserSubjects(request: { userEmail: string }): Observable<IResponseT<ISubject[]>>{
+    return this.httpService.post(`${this.controllerUrl}/GetUserSubjects`, request);
   }
 }

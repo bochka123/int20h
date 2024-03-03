@@ -8,4 +8,5 @@ public interface IGroupService
 {
     Task<Response<GroupDto>> CreateGroup(CreateGroupDto createGroupDto);
     Task<PageResponse<IEnumerable<GroupDto>>> GetAllGroups(GetRequest getRequest);
+    Task<Response<IEnumerable<GroupDto>>> GetUserGroups(string userEmail);
 }
