@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Int20h.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class TestController : ControllerBase
