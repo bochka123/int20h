@@ -19,14 +19,8 @@
       <span [class]="student.isVerified ? 'hide':''">Not Verified</span>
     </div>
     <div [class]="student.isVerified ? 'control-buttons':'hide'">
-      <button class="control">
-        <img src="/assets/images/icon/edit.svg" alt="edit">
-      </button>
-      <button class="control">
+      <button (click)="AddSubjects(student.id)" class="control">
         <img src="/assets/images/icon/done.svg" alt="done">
-      </button>
-      <button class="control">
-        <img src="/assets/images/icon/delete.svg" alt="delete">
       </button>
     </div>
 
