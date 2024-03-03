@@ -2,8 +2,8 @@
 using Int20h.Common.Response;
 using Microsoft.AspNetCore.Mvc;
 using Int20h.Common.Dtos.Subject;
-using Int20h.BLL.Services;
 using Int20h.Common.Request;
+using Int20h.BLL.Services;
 
 namespace Int20h.WebApi.Controllers;
 
@@ -34,6 +34,19 @@ public class SubjectController : ControllerBase
     public async Task<ActionResult> GetAllGroups([FromBody] GetRequest getRequest)
     {
         var response = await _subjectService.GetAllSubjects(getRequest);
+
+        if (response.Status == Status.Success)
+        {
+            return Ok(response);
+        }
+
+        return BadRequest(response);
+    }
+
+    [HttpPost("GetUserSubjects")]
+    public async Task<ActionResult> GetAllSubjects([FromBody] GetUserSubjectsDto getUserSubjectsDto)
+    {
+        var response = await _subjectService.GetUserSubjects(getUserSubjectsDto.UserEmail);
 
         if (response.Status == Status.Success)
         {

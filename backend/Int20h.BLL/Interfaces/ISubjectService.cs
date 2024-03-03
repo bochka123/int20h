@@ -8,4 +8,5 @@ public interface ISubjectService
 {
     Task<Response<SubjectDto>> CreateSubject(CreateSubjectDto createSubjectDto);
     Task<PageResponse<IEnumerable<SubjectDto>>> GetAllSubjects(GetRequest getRequest);
+    Task<Response<IEnumerable<SubjectDto>>> GetUserSubjects(string userEmail);
 }
