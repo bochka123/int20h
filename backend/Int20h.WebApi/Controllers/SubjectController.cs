@@ -31,7 +31,7 @@ public class SubjectController : ControllerBase
     }
 
     [HttpPost("GetAll")]
-    public async Task<ActionResult> GetAllGroups([FromBody] GetRequest getRequest)
+    public async Task<ActionResult> GetAllSubjects([FromBody] GetRequest getRequest)
     {
         var response = await _subjectService.GetAllSubjects(getRequest);
 
