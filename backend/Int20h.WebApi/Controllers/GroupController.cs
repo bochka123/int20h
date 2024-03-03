@@ -27,4 +27,17 @@ public class GroupController : ControllerBase
 
         return BadRequest(response);
     }
+
+    [HttpPost("GetAll")]
+    public async Task<ActionResult> GetAllGroups()
+    {
+        var response = await _groupService.GetAllGroups();
+
+        if (response.Status == Status.Success)
+        {
+            return Ok(response);
+        }
+
+        return BadRequest(response);
+    }
 }
