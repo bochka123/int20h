@@ -1,1 +1,14 @@
-<p>create-subject works!</p>
+<main>
+  <h1>Create a subject</h1>
+  <form (submit)="submitForm($event)" [formGroup]="createSubjectForm">
+    <div>
+      <input placeholder="Subject name" type="text" formControlName="subjectName">
+    </div>
+    <div>
+      <input placeholder="Teacher email" type="text" formControlName="teacherEmail">
+    </div>
+    <div class="buttons">
+      <input type="submit" value="Create teacher">
+    </div>
+  </form>
+</main>
