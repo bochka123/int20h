@@ -76,8 +76,7 @@ export class SignUpComponent {
                 validators: [Validators.required],
                 updateOn: 'change',
             }),
-            group: new FormControl('', {
-                validators: [Validators.required],
+            groupName: new FormControl('', {
                 updateOn: 'change',
             }),
         },
@@ -93,7 +92,7 @@ export class SignUpComponent {
         password: '',
         phone: '',
         role: null,
-        group: null,
+        groupName: null,
     };
 
     constructor(
@@ -152,7 +151,7 @@ export class SignUpComponent {
             ? ''
             : 'The password must be between 6 and 25 characters long, contain uppercase and lowercase letters, and one of the characters @$!%*?&. or a number';
         this.passwordConfirmationError = password === passwordConfirmation ? '' : 'Password did not match';
-        this.roleError = 'Role is required';
+        this.roleError = !this.role.valid ? 'Role is required' : '';
     }
 
     private validateForm() {
@@ -165,8 +164,10 @@ export class SignUpComponent {
         this.user.email = this.email.value;
         this.user.phone = this.mobilePhone.value;
         this.user.password = this.password.value;
-        this.user.role = this.role.value;
-        this.user.group = this.group.value;
+        this.user.role = Number(this.role.value);
+        this.user.groupName = this.groupName.value;
+        console.log(this.user);
+        
 
         this.authService.signUp(this.user).subscribe(
             (result) => {
@@ -221,7 +222,7 @@ export class SignUpComponent {
         return this.registerForm.get('role') as FormControl;
     }
 
-    get group(): FormControl {
-        return this.registerForm.get('group') as FormControl;
+    get groupName(): FormControl {
+        return this.registerForm.get('groupName') as FormControl;
     }
 }

@@ -113,7 +113,7 @@ public class UserService : BaseService, IUserService
 			return new Response<UserDto>(Status.Error, $"User with email {userDto.Email} not found");
 		}
 
-		var student = await _context.StudentInformations.FirstOrDefaultAsync(s => s.Id == user.Id);
+		var student = await _context.StudentInformations.FirstOrDefaultAsync(s => s.UserId == user.Id);
 
 		if (student != null)
 		{

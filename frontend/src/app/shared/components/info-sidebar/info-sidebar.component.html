@@ -1,4 +1,4 @@
-<aside>
+<aside *ngIf="hasRole">
     <div *ngFor="let item of sidebarInfoItems; index as i">
       <a href="" [routerLink]="item.route" routerLinkActive="activated"  class="sidebar-link">{{item.name}}</a>
     </div>

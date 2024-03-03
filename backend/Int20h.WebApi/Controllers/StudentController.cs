@@ -1,6 +1,5 @@
 ﻿using Int20h.BLL.Interfaces;
-using Int20h.BLL.Services;
-using Int20h.Common.Dtos.Group;
+
 using Int20h.Common.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +17,9 @@ public class StudentController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<ActionResult> GetAllStudents()
+	public async Task<ActionResult> GetAllStudents([FromQuery] bool notVerified)
 	{
-		var response = await _studentService.GetAllStudents();
+		var response = await _studentService.GetAllStudents(notVerified);
 
 		if (response.Status == Status.Success)
 		{
