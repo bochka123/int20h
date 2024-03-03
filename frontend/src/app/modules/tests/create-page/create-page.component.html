@@ -1,0 +1,18 @@
+<div class="create-page-container">
+  <h2>Create Test</h2>
+  <label>Title:</label>
+  <input [(ngModel)]="test.title" placeholder="Enter test title" />
+
+  <label>Description:</label>
+  <textarea [(ngModel)]="test.description" placeholder="Enter test description"></textarea>
+
+  <label>Cost:</label>
+  <input type="number" [(ngModel)]="test.cost" placeholder="Enter test cost" />
+
+  <label>Group:</label>
+  <select [(ngModel)]="test.groupName" placeholder="Select a group">
+    <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+  </select>
+
+  <button (click)="createTest()">Create</button>
+</div>
