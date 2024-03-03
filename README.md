@@ -18,7 +18,7 @@ Frontend:
 ## Links:
 
 - [Website]()
-- [Trello Board](https://github.com/users/bochka123/projects/4)
+- [Back Log](https://github.com/users/bochka123/projects/4)
 
 ## Building sources
 
@@ -28,96 +28,6 @@ By default, apps run on the following ports:
 |-----------------------------|------|
 | StudentHUB.**WebAPI**       | 5000 |
 | Angular CLI                 | 5050 |
-
-## DB Schema
-
-```mermaid
-erDiagram
-  Users ||--|{ Friends : requesterId
-  Users ||--|{ Friends : userId
-  Users ||--|{ Notifications : userId
-  Users }|--|{ Chats : id
-  Users }|--|{ Lessons : id
-  Users }|--|{ CreatedLessons : id
-
-  Users {
-    bigint Id PK
-    int country
-    int language
-    int timezone
-    nvarchar firstName
-    nvarchar lastName
-    int age
-    nvarchar email
-    nvarchar imagePath
-    int sex
-    int languageLevel
-    int status
-    boolean isSubscribed
-    boolean isBanned
-  }
-
-  Notifications {
-    bigint id PK
-    bigint userId FK
-    nvarchar text
-    int type
-    boolean isRead
-  }
-
-  Friends{
-    bigint id PK
-    bigint requesterId FK
-    bigint userId FK
-    int friendshipStatus
-  }
-
-  Chats ||--|{ Messages : chatId
-  Chats ||--|{ Calls : chatId
-  Chats {
-    bigint id PK
-    nvarchar name
-  }
-  
-  Lessons {
-    bigint id PK
-    bigint createdBy FK
-    nvarchar name
-    nvarchar description
-    nvarchar mediaPath
-    nvarchar questions
-    datetime startsAt
-    int limitOfUsers
-    int languageLevel
-  }
-
-  Calls {
-    bigint id PK
-	bigint createdBy
-    bigint chatId FK
-    datetime startedAt
-    datetime finishedAt
-  }
-
-  Tags }|--|{ Users : id
-  Tags }|--|{ Lessons : id
-  Tags {
-    bigint id PK
-    nvarchar text
-  }
-
-  Messages {
-    bigint id PK
-	bigint createdBy
-    bigint chatId FK
-    nvarchar text
-    datetime createdAt
-    boolean isDeleted
-  }
-
-```
-
-## Code quality
 
 Make sure you read and follow [.NET Quality Criteria](TODO).
 Also, there are some best practices for frontend development: [Angular](https://angular.io/guide/styleguide) and [Typescript](https://google.github.io/styleguide/tsguide.html)
