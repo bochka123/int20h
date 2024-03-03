@@ -18,4 +18,8 @@ export class TestsPageComponent {
     public create() {
 
     }
+
+    public goToTest() {
+        
+    }
 }

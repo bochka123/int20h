@@ -6,7 +6,7 @@
     </button>
   </div>
   <button *ngIf="isTeacherOrAdmin" class="create" (click)="create()">
-    Створити
+    Cretae
   </button>
 </div>
 
@@ -16,19 +16,8 @@
       test
     </div>
     <div class="control-buttons">
-      <button>
-        <img src="assets/images/icon/done.svg" alt="done">
-      </button>
-    </div>
-  </div>
-
-  <div class="student-info">
-    <div>
-      test
-    </div>
-    <div class="control-buttons">
-      <button>
-        <img src="assets/images/icon/done.svg" alt="done">
+      <button *ngIf="!isTeacherOrAdmin" class="blue-button" (click)="goToTest()">
+        Pass a test
       </button>
     </div>
   </div>
