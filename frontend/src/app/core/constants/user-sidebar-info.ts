@@ -2,11 +2,6 @@ import { Role } from "@shared/data/roles"
 
 export const userSidebarInfo: IUserSidebarInfo[] = [
     {
-        availableRoles: [Role.admin],
-        route: 'lol',
-        name: 'Test2',
-    },
-    {
         availableRoles: [Role.student, Role.teacher, Role.admin],
         route: 'tests',
         name: 'Tests',
@@ -30,6 +25,11 @@ export const userSidebarInfo: IUserSidebarInfo[] = [
       availableRoles: [Role.admin],
       route: 'groups/create-subject',
       name: 'Create Subject',
+    },
+    {
+      availableRoles: [Role.admin],
+      route: 'user/verify',
+      name: 'Verify Users',
     }
 ]
 

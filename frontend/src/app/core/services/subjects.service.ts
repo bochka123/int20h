@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "@core/services/http.service";
-import {IGroup} from "../../models/IGroup";
 import {ISubject} from "../../models/ISubject";
 
 @Injectable({
