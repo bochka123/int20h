@@ -167,9 +167,7 @@ export class SignUpComponent {
         this.user.phone = this.mobilePhone.value;
         this.user.password = this.password.value;
         this.user.role = Number(this.role.value);
-        this.user.groupName = this.groupName.value;
-        console.log(this.user);
-        
+        this.user.groupName = this.groupName.value;        
 
         this.authService.signUp(this.user).subscribe(
             (result) => {
