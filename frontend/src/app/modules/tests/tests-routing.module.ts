@@ -5,6 +5,7 @@ import { AuthGuard } from '@core/guards/auth.guard';
 import { RoleGuard } from '@core/guards/role.guard';
 import { Role } from '@shared/data/roles';
 import {CreatePageComponent} from "@modules/tests/create-page/create-page.component";
+import {CreateTasksPageComponent} from "@modules/tests/create-tasks-page/create-tasks-page.component";
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'test/:id',
-    component: CreatePageComponent,
+    component: CreateTasksPageComponent,
     // canActivate: [AuthGuard, RoleGuard],
     // data: {roles: [Role.teacher]}
   }

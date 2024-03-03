@@ -9,9 +9,9 @@
   <label>Cost:</label>
   <input type="number" [(ngModel)]="test.cost" placeholder="Enter test cost" />
 
-  <label>Group:</label>
-  <select [(ngModel)]="test.groupName" placeholder="Select a group">
-    <option *ngFor="let group of groups" [value]="group">{{ group }}</option>
+  <label>Subject:</label>
+  <select [(ngModel)]="test.subjectId" placeholder="Select a group">
+    <option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</option>
   </select>
 
   <button (click)="createTest()">Create</button>
