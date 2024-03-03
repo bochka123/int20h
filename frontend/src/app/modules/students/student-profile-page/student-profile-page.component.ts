@@ -1,40 +1,26 @@
-import {Component} from "@angular/core";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {emailFormatRegex, mobilePhoneFormatRegex, nameFormatRegex} from "@core/utils/regex.util";
-import {IUser} from "../../../models/IUser";
-import {UserService} from "@core/services/user.service";
-import {MatDialog} from "@angular/material/dialog";
-import {AuthService} from "@core/services/auth.service";
-import {ModalComponent} from "@shared/components/modal/modal.component";
-
-type OptionType = {
-  name:string,
-  lections:number,
-  test: number,
-  mark: number
-}
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  emailFormatRegex,
+  mobilePhoneFormatRegex,
+  nameFormatRegex,
+} from '@core/utils/regex.util';
+import { IUser } from '../../../models/IUser';
+import { UserService } from '@core/services/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '@core/services/auth.service';
+import { ModalComponent } from '@shared/components/modal/modal.component';
+import { ActivatedRoute, Route } from '@angular/router';
+import { IStudentInformation } from 'src/app/models/IStudentInformation';
+import { StudentService } from '@core/services/student.service';
 
 @Component({
   selector: 'app-student-profile-page',
   templateUrl: 'student-profile-page.component.html',
-  styleUrls: ['student-profile-page.component.scss']
+  styleUrls: ['student-profile-page.component.scss'],
 })
 export class StudentProfilePageComponent {
-
-  subjects:OptionType[] = [
-    {
-      name:"test",
-      lections: 45,
-      test: 8,
-      mark: 4
-    },
-    {
-      name:"test2",
-      lections: 18,
-      test: 2,
-      mark: 8
-    }
-  ]
+  student: IStudentInformation;
 
   firstNameError: string;
   lastNameError: string;
@@ -43,7 +29,11 @@ export class StudentProfilePageComponent {
 
   updateForm = new FormGroup({
     email: new FormControl('', {
-      validators: [Validators.required, Validators.maxLength(50), Validators.pattern(emailFormatRegex)],
+      validators: [
+        Validators.required,
+        Validators.maxLength(50),
+        Validators.pattern(emailFormatRegex),
+      ],
       updateOn: 'submit',
     }),
     firstName: new FormControl('', {
@@ -55,7 +45,10 @@ export class StudentProfilePageComponent {
       updateOn: 'submit',
     }),
     mobilePhone: new FormControl('', {
-      validators: [Validators.required, Validators.pattern(mobilePhoneFormatRegex)],
+      validators: [
+        Validators.required,
+        Validators.pattern(mobilePhoneFormatRegex),
+      ],
       updateOn: 'submit',
     }),
   });
@@ -67,27 +60,40 @@ export class StudentProfilePageComponent {
     lastName: '',
     email: '',
     phone: '',
-    avatarUrl: ''
+    avatarUrl: '',
   };
 
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
     private authService: AuthService,
-  ) {}
+    private route: ActivatedRoute,
+    private studentService: StudentService
+  ) {
+    route.params.subscribe((params) => {
+      studentService.getStudentById(params['id']).subscribe((res) => {
+        if (res?.value) this.student = res.value;
+      });
+    });
+  }
 
   ngOnInit(): void {
-    const user = JSON.parse(localStorage.getItem('user') as string);
-    this.user.firstName = user.firstName;
-    this.user.lastName = user.lastName;
-    this.user.email = user.email;
-    this.user.phone = user.phone;
-    this.user.avatarUrl = user.avatarUrl ? user.avatarUrl : '';
-    this.avatarUrl = user.avatarUrl ? user.avatarUrl : 'assets/images/avatar/avatar.svg';
-    this.updateMobilePhone(user.phone);
-    this.updateFirstName(user.firstName);
-    this.updateLastName(user.lastName);
-    this.updateEmail(user.email);
+    console.log(this.student);
+    this.route.params.subscribe((params) => {
+      this.studentService.getStudentById(params['id']).subscribe((res) => {
+        if (res?.value) this.student = res.value;
+        this.user.firstName = res?.value?.user?.firstName || '';
+        this.user.lastName = res?.value?.user?.lastName || '';
+        this.user.email = res?.value?.user?.email;
+        this.user.phone = res?.value?.user?.phone;
+        this.user.avatarUrl = '';
+        this.avatarUrl = 'assets/images/avatar/avatar.svg';
+        this.updateMobilePhone(res?.value?.user?.phone);
+        this.updateFirstName(res?.value?.user?.firstName);
+        this.updateLastName(res?.value?.user?.lastName);
+        this.updateEmail(res?.value?.user?.email);
+      });
+    });
   }
 
   submitForm(event: SubmitEvent) {
@@ -127,11 +133,19 @@ export class StudentProfilePageComponent {
       /^([a-zA-Z-]+([a-zA-Z0-9_.]+)?)@[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*\.[a-zA-Z0-9]+([-.][a-zA-Z0-9]+)*$/;
     const mobilePhoneRegex = /^[0-9]{10}$/;
     this.firstNameError =
-      firstName !== null && nameRegex.test(firstName) ? '' : 'First name must be Latin from 2 to 25 characters';
+      firstName !== null && nameRegex.test(firstName)
+        ? ''
+        : 'First name must be Latin from 2 to 25 characters';
     this.lastNameError =
-      lastName !== null && nameRegex.test(lastName) ? '' : 'Last name must be Latin from 2 to 25 characters';
-    this.emailError = emailRegex.test(email) ? '' : 'You entered not valid email';
-    this.mobilePhoneError = mobilePhoneRegex.test(mobilePhone) ? '' : 'Mobile phone must consist of 10 digits';
+      lastName !== null && nameRegex.test(lastName)
+        ? ''
+        : 'Last name must be Latin from 2 to 25 characters';
+    this.emailError = emailRegex.test(email)
+      ? ''
+      : 'You entered not valid email';
+    this.mobilePhoneError = mobilePhoneRegex.test(mobilePhone)
+      ? ''
+      : 'Mobile phone must consist of 10 digits';
   }
 
   private validateForm() {
@@ -165,7 +179,7 @@ export class StudentProfilePageComponent {
             content: (error.error as any).message,
           },
         });
-      },
+      }
     );
   }
 
@@ -185,19 +199,19 @@ export class StudentProfilePageComponent {
     return this.updateForm.get('mobilePhone') as FormControl;
   }
 
-  updateMobilePhone(mobilePhone: string) {
+  updateMobilePhone(mobilePhone?: string) {
     this.mobilePhone.setValue(mobilePhone);
   }
 
-  updateFirstName(firstName: string) {
+  updateFirstName(firstName?: string) {
     this.firstName.setValue(firstName);
   }
 
-  updateLastName(lastName: string) {
+  updateLastName(lastName?: string) {
     this.lastName.setValue(lastName);
   }
 
-  updateEmail(email: string) {
+  updateEmail(email?: string) {
     this.email.setValue(email);
   }
 
@@ -229,7 +243,7 @@ export class StudentProfilePageComponent {
               content: 'Something went wrong',
             },
           });
-        },
+        }
       );
     });
   }
@@ -250,14 +264,14 @@ export class StudentProfilePageComponent {
         },
         (error: any) => {
           console.log(error);
-        },
+        }
       );
     }
   }
 
-  deletePhoto(){
+  deletePhoto() {
     const model = {
-      Url: this.avatarUrl
+      Url: this.avatarUrl,
     };
 
     this.userService.deleteProfilePhoto(JSON.stringify(model)).subscribe(
@@ -267,7 +281,7 @@ export class StudentProfilePageComponent {
       },
       (error: any) => {
         console.log(error);
-      },
+      }
     );
   }
 }

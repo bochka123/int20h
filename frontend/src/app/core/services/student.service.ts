@@ -21,4 +21,8 @@ export class StudentService {
   getNotVerifiedStudents() : Observable<IResponseT<IStudentInformation[]>> {
     return this.httpService.get(`${this.controllerUrl}?notVerified=true`);
   }
+
+  getStudentById(id: number) : Observable<IResponseT<IStudentInformation>> {
+    return this.httpService.get(`${this.controllerUrl}/${id}`);
+  }
 }
