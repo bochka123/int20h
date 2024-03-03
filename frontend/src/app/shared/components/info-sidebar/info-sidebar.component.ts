@@ -11,12 +11,14 @@ import { Role } from '@shared/data/roles';
 export class InfoSidebar implements OnInit {
   userRole: Role;
   sidebarInfoItems: IUserSidebarInfo[];
+  hasRole: boolean;
 
   constructor(authService: AuthService) {
     this.userRole = authService.getUserRole();
+    this.hasRole = this.userRole !== Role.none;
   }
 
   ngOnInit(): void {
-    this.sidebarInfoItems = userSidebarInfo.filter(item => item.availableRoles.includes(this.userRole));
+    if(this.hasRole) this.sidebarInfoItems = userSidebarInfo.filter(item => item.availableRoles.includes(this.userRole));
   }
 }

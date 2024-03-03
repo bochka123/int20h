@@ -12,9 +12,10 @@ public class StudentService : BaseService, IStudentService
 {
 	public StudentService(ApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
 
-	public async Task<Response<List<StudentDto>>> GetAllStudents()
+	public async Task<Response<List<StudentDto>>> GetAllStudents(bool notVerified)
 	{
 		var students = await _context.StudentInformations
+			.Where(s => notVerified ? !s.IsVerified : true)
 			.Include(s => s.User)
 			.ToListAsync();
 

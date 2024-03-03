@@ -43,9 +43,9 @@
       <app-error *ngIf="roleError" [text]="roleError"></app-error>
     </div>
     <div *ngIf="isStudent">
-      <select id="group" formControlName="group">
+      <select id="groupName" formControlName="groupName">
         <option value="" disabled selected>-- Select group --</option>
-        <option *ngFor="let group of groups.value" [ngValue]="group.id">{{ group.name }}</option>
+        <option *ngFor="let group of groups.value" [ngValue]="group.name">{{ group.name }}</option>
       </select>
     </div>
     <div class="buttons">
