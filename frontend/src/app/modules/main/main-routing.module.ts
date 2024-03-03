@@ -23,6 +23,14 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'teachers',
+        pathMatch: 'prefix',
+        loadChildren: () =>
+          import('../teachers/teachers.module').then(
+            (m) => m.TeachersModule
+          ),
+      },
+      {
         path: 'groups',
         pathMatch: 'prefix',
         loadChildren: () => import('../groups/groups.module').then((m) => m.GroupsModule),

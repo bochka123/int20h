@@ -131,6 +131,8 @@ public class UserService : BaseService, IUserService
 		if (teacher != null)
 		{
 			await _userManager.AddToRoleAsync(user, Roles.Teacher);
+
+			teacher.IsVerified = true;
 			_context.TeacherInformations.Update(teacher);
 
 			await _context.SaveChangesAsync();
