@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.BLL", "Int20h.BLL\In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.DAL", "Int20h.DAL\Int20h.DAL.csproj", "{64CE84DB-BB75-45A5-98B7-2A05B890F194}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryCraft", "QueryCraft\QueryCraft.csproj", "{6D7C173A-876F-4B33-A4E7-CED6E46B71B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{64CE84DB-BB75-45A5-98B7-2A05B890F194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64CE84DB-BB75-45A5-98B7-2A05B890F194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64CE84DB-BB75-45A5-98B7-2A05B890F194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7C173A-876F-4B33-A4E7-CED6E46B71B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7C173A-876F-4B33-A4E7-CED6E46B71B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7C173A-876F-4B33-A4E7-CED6E46B71B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7C173A-876F-4B33-A4E7-CED6E46B71B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
