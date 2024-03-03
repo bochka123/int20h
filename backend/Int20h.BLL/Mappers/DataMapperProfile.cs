@@ -3,6 +3,7 @@ using Int20h.DAL.Entities;
 using AutoMapper;
 using Int20h.Common.Dtos.Group;
 using Int20h.Common.Dtos.Test;
+using Int20h.Common.Dtos.Subject;
 
 namespace Int20h.BLL.Mappers
 {
@@ -31,6 +32,8 @@ namespace Int20h.BLL.Mappers
 
 			CreateMap<CreateGroupDto, Group>().ReverseMap();
 			CreateMap<Group, GroupDto>().ReverseMap();
+
+			CreateMap<Subject, SubjectDto>().ReverseMap();
 
 			CreateMap<CreateTestDto, Test>();
 			CreateMap<Test, TestDto>();
