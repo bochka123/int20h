@@ -1,6 +1,7 @@
 ﻿using Int20h.Common.Dtos.User;
 using Int20h.DAL.Entities;
 using AutoMapper;
+using Int20h.Common.Dtos.Test;
 
 namespace Int20h.BLL.Mappers
 {
@@ -26,6 +27,9 @@ namespace Int20h.BLL.Mappers
 			CreateMap<EditUserDto, User>()
                 .ForMember(dest => dest.PhoneNumber, opt => opt.MapFrom(src => src.Phone))
 				.ReverseMap();
+
+			CreateMap<CreateTestDto, Test>();
+			CreateMap<Test, TestDto>();
         }
 	}
 }

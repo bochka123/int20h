@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Int20h.WebApi", "Int20h.WebApi\Int20h.WebApi.csproj", "{F0D8561F-B820-4D7A-A62F-7332CA671FA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.WebApi", "Int20h.WebApi\Int20h.WebApi.csproj", "{F0D8561F-B820-4D7A-A62F-7332CA671FA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Int20h.Common", "Int20h.Common\Int20h.Common.csproj", "{B71D024F-E905-4DF4-924B-EC78686A11D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.Common", "Int20h.Common\Int20h.Common.csproj", "{B71D024F-E905-4DF4-924B-EC78686A11D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Int20h.BLL", "Int20h.BLL\Int20h.BLL.csproj", "{CC0EA36B-9011-462A-A33A-68E6B9A6AC65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.BLL", "Int20h.BLL\Int20h.BLL.csproj", "{CC0EA36B-9011-462A-A33A-68E6B9A6AC65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Int20h.DAL", "Int20h.DAL\Int20h.DAL.csproj", "{64CE84DB-BB75-45A5-98B7-2A05B890F194}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Int20h.DAL", "Int20h.DAL\Int20h.DAL.csproj", "{64CE84DB-BB75-45A5-98B7-2A05B890F194}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryCraft", "QueryCraft\QueryCraft.csproj", "{CA9FB22E-481F-46C0-883A-027F7E40498E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{64CE84DB-BB75-45A5-98B7-2A05B890F194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64CE84DB-BB75-45A5-98B7-2A05B890F194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64CE84DB-BB75-45A5-98B7-2A05B890F194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA9FB22E-481F-46C0-883A-027F7E40498E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA9FB22E-481F-46C0-883A-027F7E40498E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA9FB22E-481F-46C0-883A-027F7E40498E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA9FB22E-481F-46C0-883A-027F7E40498E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

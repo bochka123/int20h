@@ -14,6 +14,7 @@ using System.Security.Claims;
 using Int20h.DAL.Interfaces;
 using Int20h.DAL.Helpers;
 using Azure.Storage.Blobs;
+using QueryCraft.MVC;
 
 namespace Int20h.WebAPI.Extensions;
 
@@ -47,6 +48,10 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IGroupService, GroupService>();
         services.AddTransient<ISubjectService, SubjectService>();
         services.AddScoped<ICredentialService, CredentialService>();
+        services.AddTransient<ITestService, TestService>();
+        services.AddTransient<IQuestionService, QuestionService>();
+        services.RegisterQueryCraft();
+        services.AddTransient<IPagingService, PagingService>();
 	}
 
     public static void AddCustomAutoMapperProfiles(this IServiceCollection services)
