@@ -1,5 +1,5 @@
 ﻿using Int20h.BLL.Interfaces;
-
+using Int20h.Common.Dtos.Student;
 using Int20h.Common.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,4 +41,17 @@ public class StudentController : ControllerBase
 
 		return BadRequest(response);
 	}
+
+	[HttpPut]
+	public async Task<ActionResult> PinStudentToSubject(PinStudentDto pinStudentDto)
+	{
+        var response = await _studentService.PinStudentToSubject(pinStudentDto);
+
+        if (response.Status == Status.Success)
+        {
+            return Ok(response);
+        }
+
+        return BadRequest(response);
+    }
 }
