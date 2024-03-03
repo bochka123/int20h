@@ -5,4 +5,8 @@ import { Component } from "@angular/core";
     templateUrl: 'tests.component.html',
     styleUrls: ['tests.component.scss'],
 })
-export class TestsPageComponent {}
+export class TestsPageComponent {
+    public create() {
+        
+    }
+}

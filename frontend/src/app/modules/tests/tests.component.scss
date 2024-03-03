@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   padding: 10px;
   background-color: #f0f0f0;
   border-radius: 5px;
@@ -100,3 +101,22 @@ button:hover {
   }
 }
 
+button.create {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 24px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #218838;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
