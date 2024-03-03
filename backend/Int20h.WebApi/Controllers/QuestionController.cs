@@ -16,7 +16,7 @@ namespace Int20h.WebApi.Controllers
             _questionService = testService;
         }
 
-        [HttpPost(Name = "Get")]
+        [HttpGet]
         public async Task<IActionResult> Get(Guid taskId)
         {
             var response = await _questionService.GetByTaskId(taskId);
@@ -39,9 +39,9 @@ namespace Int20h.WebApi.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(Guid taskId, [FromBody] QuestionDto request)
+        public async Task<IActionResult> Put(Guid questionId, [FromBody] QuestionDto request)
         {
-            var response = await _questionService.Edit(request, taskId);
+            var response = await _questionService.Edit(request, questionId);
             if (response.Status == Status.Success)
             {
                 return Ok(response);

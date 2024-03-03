@@ -18,7 +18,7 @@ namespace Int20h.BLL.Services
 
         public async Task<Response<IEnumerable<QuestionResponseDto>>> GetByTaskId(Guid testId)
         {
-            var test = _context.Tests.Include(x => x.Questions).FirstOrDefault(x => x.Id == testId);
+            var test = _context.Tests.Include(x => x.Questions).ThenInclude(x => x.QuestionOptions).FirstOrDefault(x => x.Id == testId);
             if (test == null)
             {
                 return new Response<IEnumerable<QuestionResponseDto>>(Status.Error, "Test not found.");
@@ -96,31 +96,25 @@ namespace Int20h.BLL.Services
                 return new Response<QuestionResponseDto>(Status.Error, "Question not found.");
             }
 
-            _mapper.Map(questionDto, question);
-
-            question.UpdatedAt = DateTime.UtcNow;
-
-            foreach (var optionDto in questionDto.QuestionOptions)
-            {
-                var existingOption = question.QuestionOptions.FirstOrDefault(o => o.Text == optionDto.Text);
-
-                if (existingOption == null)
-                {
-                    var newOption = new QuestionOption()
-                    {
-                        Text = optionDto.Text,
-                        IsCorrect = optionDto.IsCorrect,
-                        QuestionId = question.Id
-                    };
-                    question.QuestionOptions.Add(newOption);
-                }
-            }
             var notExistingOptions = question.QuestionOptions.Where(o => !questionDto.QuestionOptions.Any(x => x.Text == o.Text));
-            foreach (var optionDto in notExistingOptions) 
-            {
-                _context.QuestionOptions.Remove(optionDto);
-            }
 
+            //foreach (var optionDto in notExistingOptions)
+            //{
+            //    _context.QuestionOptions.Remove(optionDto);
+            //}
+
+            //var newOptions= questionDto.QuestionOptions.Where(o => o.Id == null);
+
+            //foreach (var optionDto in newOptions) 
+            //{
+            //    var option = _mapper.Map<QuestionOption>(optionDto);
+            //    option.QuestionId = questionId;
+            //    _context.QuestionOptions.Add(option);
+            //}
+
+            question = _mapper.Map<Question>(questionDto);
+            question.UpdatedAt = DateTime.UtcNow;
+            
             await _context.SaveChangesAsync();
 
             return new Response<QuestionResponseDto>(_mapper.Map<QuestionResponseDto>(question), "Question updated successfully");

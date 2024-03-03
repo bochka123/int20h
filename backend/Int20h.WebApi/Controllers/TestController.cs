@@ -2,7 +2,6 @@
 using Int20h.Common.Dtos.Test;
 using Int20h.Common.Request;
 using Int20h.Common.Response;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Int20h.WebApi.Controllers
