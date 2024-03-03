@@ -1,22 +1,14 @@
-﻿using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
 
 using AutoMapper;
 
 using Int20h.BLL.Interfaces;
 using Int20h.BLL.Services.Abstract;
 using Int20h.Common.Dtos.User;
-using Int20h.Common.Helpers;
 using Int20h.Common.Response;
 using Int20h.DAL.Context;
 using Int20h.DAL.Entities;
 using Microsoft.AspNetCore.Identity;
-using Int20h.Common.Enums;
 using Role = Int20h.DAL.Entities.Role;
 
 namespace Int20h.BLL.Services;
@@ -24,14 +16,12 @@ namespace Int20h.BLL.Services;
 public class AuthService : BaseService, IAuthService
 {
 	private readonly UserManager<User> _userManager;
-	private readonly RoleManager<Role> _roleManager;
 	private readonly ITokenService _tokenService;
 
 	public AuthService(ApplicationDbContext context, IMapper mapper, UserManager<User> userManager, 
-		RoleManager<Role> roleManager, ITokenService tokenService) : base(context, mapper)
+		ITokenService tokenService) : base(context, mapper)
 	{
 		_userManager = userManager;
-		_roleManager = roleManager;
 		_tokenService = tokenService;
 	}
 	public async Task<Response<UserDto>> SignUpAsync(SignUpUserDto userDto)
@@ -66,6 +56,7 @@ public class AuthService : BaseService, IAuthService
 				UserId = user.Id,
 				GroupId = group.Id
 			};
+			await _context.StudentInformations.AddAsync(studentInformation);
 		}
         else
         {
@@ -75,7 +66,8 @@ public class AuthService : BaseService, IAuthService
 				UpdatedAt = DateTime.Now,
 				UserId = user.Id
 			};
-        }
+			await _context.TeacherInformations.AddAsync(teacherInformation);
+		}
 		await _context.SaveChangesAsync();
 
         var userResponse = _mapper.Map<UserDto>(user);
