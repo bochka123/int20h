@@ -1,0 +1,78 @@
+@import 'src/styles/colors.scss';
+@import 'src/styles/fonts.scss';
+
+.container {
+  padding: 48px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  margin: auto;
+}
+
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+
+  .close {
+    cursor: pointer;
+  }
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: $black-100;
+}
+
+.content {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: $gray-300;
+}
+
+button {
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 12px 24px;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cancel {
+  color: $gray-200;
+  border: 1px solid $gray-200;
+  background-color: #fff;
+}
+
+.confirm, .ok {
+  border: none;
+  background-color: $gray-200;
+  color: $black-100;
+}
+
+button:hover {
+  background-color: $gray-100;
+  color: #000;
+}
+
+select {
+  width: 100%;
+  background-color: #f8f8f8;
+  border-radius: 5px;
+  padding: 12px 15px;
+  border: 1px solid $gray-200;
+  outline-color: $gray-300;
+  @include body1-font;
+  color: $black-100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-dialog-actions {
+  justify-content: space-between;
+}

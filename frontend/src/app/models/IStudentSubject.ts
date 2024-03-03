@@ -13,3 +13,8 @@ export interface IStudentSubject extends IBaseEntity {
     attendedLessons: IStudentLesson[];
     attendencePercentage: number;
 }
+
+export interface IPinToSubject {
+    email: string;
+    subjectId: string;
+}

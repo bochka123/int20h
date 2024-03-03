@@ -67,7 +67,7 @@ export class HttpService {
         return this.httpClient.delete(`${this.buildUrl(url)}`, options).pipe(catchError(this.handleError));
     }
 
-    put<T>(url: string, resource: T) {
+    put<T>(url: string, resource: unknown) {
         return this.httpClient
             .put<T>(this.buildUrl(url), resource, { headers: this.headers })
             .pipe(catchError(this.handleError));

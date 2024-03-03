@@ -9,3 +9,7 @@ export interface IModal {
   component?: Type<never>;
   hasButtons?: boolean;
 }
+
+export interface ISelectSubjectModal extends IModal {
+  userEmail: string;
+}
