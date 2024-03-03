@@ -11,6 +11,6 @@ public class Question : BaseEntity
     public required string Text { get; set; }
     public Test Test { get; set; }
     public Guid TestId { get; set; }
-    public ICollection<QuestionOption> QuestionOptions { get; set; }
+    public ICollection<QuestionOption> QuestionOptions { get; set; } = new List<QuestionOption>();
     public double Cost { get; set; }
 }

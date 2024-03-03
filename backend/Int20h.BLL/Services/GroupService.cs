@@ -26,7 +26,7 @@ public class GroupService : BaseService, IGroupService
     {
         var user = await _userManager.FindByEmailAsync(createGroupDto.MentorEmail);
 
-        if(user is null)
+        if (user is null)
         {
             return new Response<GroupDto>(Status.Error, "Teacher with this email does not exist!");
         }

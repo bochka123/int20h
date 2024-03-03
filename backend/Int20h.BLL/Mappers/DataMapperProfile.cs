@@ -1,10 +1,12 @@
 ﻿using Int20h.Common.Dtos.User;
 using Int20h.DAL.Entities;
 using AutoMapper;
-using Int20h.Common.Dtos.Group;
 using Int20h.Common.Dtos.Test;
+using Int20h.Common.Dtos.Question;
 using Int20h.Common.Dtos.Subject;
 using Int20h.Common.Dtos.Student;
+using Int20h.Common.Dtos.Group;
+using Int20h.Common.Dtos.Session;
 
 namespace Int20h.BLL.Mappers
 {
@@ -17,6 +19,7 @@ namespace Int20h.BLL.Mappers
 			ConfigureSubjectMapper();
 			ConfigureTestMapper();
 			ConfigureStudentMapper();
+			ConfigureTests();
 		}
 
 		private void ConfigureUserMapper()
@@ -47,6 +50,21 @@ namespace Int20h.BLL.Mappers
 			CreateMap<CreateTestDto, Test>();
 			CreateMap<Test, TestDto>();
 		}
+		private void ConfigureTests()
+		{
+            CreateMap<QuestionDto, Question>()
+                .ForMember(dest => dest.QuestionOptions, opt => opt.MapFrom(src => src.QuestionOptions));
+
+            CreateMap<Question, QuestionResponseDto>()
+                .ForMember(dest => dest.QuestionOptions, opt => opt.MapFrom(src => src.QuestionOptions.ToList()));
+
+            CreateMap<QuestionOption, QuestionOptionDto>().ReverseMap();
+
+            CreateMap<TestEditDto, Test>();
+
+            CreateMap<TestSession, SessionDto>()
+                .ForMember(dest => dest.Answers, opt => opt.Ignore());
+        }
 
 		private void ConfigureSubjectMapper()
 		{
