@@ -56,7 +56,8 @@ public class StudentService : BaseService, IStudentService
 
 		student.StudentSubjects.Add(new StudentSubject()
 		{
-			SubjectId = pinStudentDto.SubjectId
+			SubjectId = pinStudentDto.SubjectId,
+			StudentId = student.Id
 		});
 
 		await _context.SaveChangesAsync();
