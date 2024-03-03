@@ -11,4 +11,5 @@ public interface IUserService
     Task<Response> DeleteUser(Guid userId);
     Task<Response<UserDto>> UpdatePhoto(IFormFile file, Guid userId);
     Task<Response<UserDto>> DeletePhoto(FileDto fileDto, Guid userId);
+    Task<Response<UserDto>> ConfirmUserRole(ConfirmUserRoleDto userDto);
 }

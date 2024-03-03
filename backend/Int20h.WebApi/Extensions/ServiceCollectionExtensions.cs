@@ -15,6 +15,8 @@ using Int20h.DAL.Interfaces;
 using Int20h.DAL.Helpers;
 using Azure.Storage.Blobs;
 using QueryCraft.MVC;
+using Int20h.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Int20h.WebAPI.Extensions;
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Int20h.DAL.Context;
 
-public class ApplicationDbContext: IdentityDbContext<User, Role, Guid>
+public class ApplicationDbContext: IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
     public ApplicationDbContext(DbContextOptions options) : base(options)
     {}
@@ -30,7 +30,6 @@ public class ApplicationDbContext: IdentityDbContext<User, Role, Guid>
         modelBuilder.ApplyConfiguration(new LessonConfiguration());
         modelBuilder.ApplyConfiguration(new QuestionConfiguration());
         modelBuilder.ApplyConfiguration(new QuestionOptionConfiguration());
-        modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new SessionAnswerConfiguration());
         modelBuilder.ApplyConfiguration(new StudentInformationConfiguration());
         modelBuilder.ApplyConfiguration(new StudentLessonConfiguration());

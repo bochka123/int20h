@@ -1,5 +1,6 @@
 ﻿using Int20h.BLL.Interfaces;
-using Microsoft.AspNetCore.Http;
+using Int20h.Common.Dtos.Group;
+using Int20h.Common.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Int20h.WebApi.Controllers;
@@ -10,9 +11,20 @@ public class GroupController : ControllerBase
 {
     private readonly IGroupService _groupService;
     public GroupController(IGroupService groupService)
-    { 
+    {
         _groupService = groupService;
     }
 
+    [HttpPost]
+    public async Task<ActionResult> CreateGroup([FromBody] CreateGroupDto createGroupDto)
+    {
+        var response = await _groupService.CreateGroup(createGroupDto);
 
+        if (response.Status == Status.Success)
+        {
+            return Ok(response);
+        }
+
+        return BadRequest(response);
+    }
 }

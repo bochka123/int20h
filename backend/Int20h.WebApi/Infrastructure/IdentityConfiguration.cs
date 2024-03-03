@@ -1,5 +1,6 @@
 ﻿using Int20h.DAL.Context;
 using Int20h.DAL.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace Int20h.WebApi.Infrastructure
 {
@@ -7,7 +8,7 @@ namespace Int20h.WebApi.Infrastructure
     {
         public static void ConfigureIdentity(this IServiceCollection services, IConfiguration config)
         {
-            services.AddIdentity<User, Role>(options =>
+            services.AddIdentity<User, IdentityRole<Guid>>(options =>
             {
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireDigit = false;
@@ -21,7 +22,7 @@ namespace Int20h.WebApi.Infrastructure
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
-        }
+            .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+		}
     }
 }
