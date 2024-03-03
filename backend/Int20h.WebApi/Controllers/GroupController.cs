@@ -1,5 +1,6 @@
 ﻿using Int20h.BLL.Interfaces;
 using Int20h.Common.Dtos.Group;
+using Int20h.Common.Request;
 using Int20h.Common.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,19 @@ public class GroupController : ControllerBase
     public async Task<ActionResult> CreateGroup([FromBody] CreateGroupDto createGroupDto)
     {
         var response = await _groupService.CreateGroup(createGroupDto);
+
+        if (response.Status == Status.Success)
+        {
+            return Ok(response);
+        }
+
+        return BadRequest(response);
+    }
+
+    [HttpPost("GetAll")]
+    public async Task<ActionResult> GetAllGroups([FromBody]GetRequest getRequest)
+    {
+        var response = await _groupService.GetAllGroups(getRequest);
 
         if (response.Status == Status.Success)
         {
