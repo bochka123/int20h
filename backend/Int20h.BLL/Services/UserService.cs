@@ -113,12 +113,16 @@ public class UserService : BaseService, IUserService
 			return new Response<UserDto>(Status.Error, $"User with email {userDto.Email} not found");
 		}
 
-		var student = await _context.StudentInformations.FirstOrDefaultAsync(s => s.Id == user.Id);
+		var student = await _context.StudentInformations.FirstOrDefaultAsync(s => s.UserId == user.Id);
 
 		if (student != null)
 		{
 			await _userManager.AddToRoleAsync(user, Roles.Student);
 
+			student.IsVerified = true;
+			_context.StudentInformations.Update(student);
+
+			await _context.SaveChangesAsync();
 			return new Response<UserDto>(_mapper.Map<UserDto>(user), "You have confirmed role succesfully");
 		}
 
@@ -127,7 +131,9 @@ public class UserService : BaseService, IUserService
 		if (teacher != null)
 		{
 			await _userManager.AddToRoleAsync(user, Roles.Teacher);
+			_context.TeacherInformations.Update(teacher);
 
+			await _context.SaveChangesAsync();
 			return new Response<UserDto>(_mapper.Map<UserDto>(user), "You have confirmed role succesfully");
 		}
 

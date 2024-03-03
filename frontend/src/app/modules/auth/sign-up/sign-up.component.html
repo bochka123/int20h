@@ -36,11 +36,17 @@
       <app-error *ngIf="passwordConfirmationError" [text]="passwordConfirmationError"></app-error>
     </div>
     <div>
-      <select id="role" formControlName="role">
+      <select id="role" formControlName="role" (change)="RoleChanged()">
         <option value="" disabled selected>-- Select role --</option>
-        <option *ngFor="let role of registerRoles" [ngValue]="role.value">{{ role.name }}</option>
+        <option *ngFor="let role of registerRoles" [value]="role.value">{{ role.name }}</option>
       </select>
       <app-error *ngIf="roleError" [text]="roleError"></app-error>
+    </div>
+    <div *ngIf="isStudent">
+      <select id="groupName" formControlName="groupName">
+        <option value="" disabled selected>-- Select group --</option>
+        <option *ngFor="let group of groups.value" [ngValue]="group.name">{{ group.name }}</option>
+      </select>
     </div>
     <div class="buttons">
       <input type="submit" value="Create Account">

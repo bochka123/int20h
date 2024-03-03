@@ -1,0 +1,33 @@
+﻿using AutoMapper;
+using Int20h.BLL.Interfaces;
+using Int20h.BLL.Services.Abstract;
+using Int20h.Common.Dtos.Student;
+using Int20h.Common.Response;
+using Int20h.DAL.Context;
+using Microsoft.EntityFrameworkCore;
+
+namespace Int20h.BLL.Services;
+
+public class StudentService : BaseService, IStudentService
+{
+	public StudentService(ApplicationDbContext context, IMapper mapper) : base(context, mapper) { }
+
+	public async Task<Response<List<StudentDto>>> GetAllStudents(bool notVerified)
+	{
+		var students = await _context.StudentInformations
+			.Where(s => notVerified ? !s.IsVerified : true)
+			.Include(s => s.User)
+			.ToListAsync();
+
+		return new Response<List<StudentDto>>(_mapper.Map<List<StudentDto>>(students));
+	}
+
+	public async Task<Response<StudentDto>> GetStudentById(Guid id)
+	{
+		var student = await _context.StudentInformations
+			.Include(s => s.User)
+			.FirstOrDefaultAsync(s => s.Id == id);
+
+		return new Response<StudentDto>(_mapper.Map<StudentDto>(student));
+	}
+}

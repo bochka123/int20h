@@ -3,7 +3,8 @@
     public enum Role
     {
         Student,
-        Teacher
+        Teacher,
+        Admin
     }
     public static class Roles
     {

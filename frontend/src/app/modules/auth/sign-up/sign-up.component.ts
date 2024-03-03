@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '@core/services/auth.service';
 import { matchpassword } from '@core/validators/matchpassword.validator';
 import { emailFormatRegex, mobilePhoneFormatRegex, nameFormatRegex, passFormatRegex } from '@core/utils/regex.util';
@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 import {MatDialog} from "@angular/material/dialog";
 import { RegisterRoles } from '@shared/data/register-roles';
 import { ModalComponent } from '@shared/components/modal/modal.component';
+import { GroupsService } from '@core/services/groups.service';
+import { IFilterResponse } from 'src/app/models/IFilterResponse';
+import { IGroup } from 'src/app/models/IGroup';
+import { Subscription } from 'rxjs';
 
 type OptionType = {
     name: string,
@@ -38,6 +42,9 @@ export class SignUpComponent {
     passwordError: string;
     passwordConfirmationError: string;
     roleError: string;
+    groups: IFilterResponse<IGroup[]>;
+
+    isStudent: boolean;
 
     registerForm = new FormGroup(
         {
@@ -67,7 +74,10 @@ export class SignUpComponent {
             }),
             role: new FormControl('', {
                 validators: [Validators.required],
-                updateOn: 'submit',
+                updateOn: 'change',
+            }),
+            groupName: new FormControl('', {
+                updateOn: 'change',
             }),
         },
         {
@@ -82,13 +92,23 @@ export class SignUpComponent {
         password: '',
         phone: '',
         role: null,
+        groupName: null,
     };
 
     constructor(
         private authService: AuthService,
         private dialog: MatDialog,
         private router: Router,
-    ) {}
+        groupService: GroupsService,
+    ) {
+        groupService.getAllGroups({}).subscribe(res => {
+          this.groups = res
+        });
+    }
+
+    public RoleChanged() {
+        this.isStudent = this.role.value == RegisterRoles.Student;
+    }
 
     submitForm(event: SubmitEvent) {
         event.preventDefault();
@@ -133,7 +153,7 @@ export class SignUpComponent {
             ? ''
             : 'The password must be between 6 and 25 characters long, contain uppercase and lowercase letters, and one of the characters @$!%*?&. or a number';
         this.passwordConfirmationError = password === passwordConfirmation ? '' : 'Password did not match';
-        this.roleError = 'Role is required';
+        this.roleError = !this.role.valid ? 'Role is required' : '';
     }
 
     private validateForm() {
@@ -146,7 +166,8 @@ export class SignUpComponent {
         this.user.email = this.email.value;
         this.user.phone = this.mobilePhone.value;
         this.user.password = this.password.value;
-        this.user.role = this.role.value;
+        this.user.role = Number(this.role.value);
+        this.user.groupName = this.groupName.value;        
 
         this.authService.signUp(this.user).subscribe(
             (result) => {
@@ -199,5 +220,9 @@ export class SignUpComponent {
 
     get role(): FormControl {
         return this.registerForm.get('role') as FormControl;
+    }
+
+    get groupName(): FormControl {
+        return this.registerForm.get('groupName') as FormControl;
     }
 }

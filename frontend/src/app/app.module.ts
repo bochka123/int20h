@@ -9,6 +9,7 @@ import { CoreModule } from '@core/core.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { MainModule } from '@modules/main/main.module';
 import {ProfileModule} from "@modules/profile/profile.module";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [AppComponent],
@@ -20,7 +21,9 @@ import {ProfileModule} from "@modules/profile/profile.module";
         CoreModule,
         AuthModule,
         MainModule,
-        ProfileModule
+        ProfileModule,
+        BrowserAnimationsModule,
+        ToastrModule.forRoot(),
     ],
     providers: [],
     bootstrap: [AppComponent],
