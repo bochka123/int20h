@@ -7,5 +7,5 @@ public interface IStudentService
 {
 	Task<Response<List<StudentDto>>> GetAllStudents(bool notVerified);
 	Task<Response<StudentDto>> GetStudentById(Guid id);
-	Task<Response<StudentDto>> PinStudentDto(PinStudentDto pinStudentDto);
+	Task<Response<StudentDto>> PinStudentToSubject(PinStudentDto pinStudentDto);
 }
