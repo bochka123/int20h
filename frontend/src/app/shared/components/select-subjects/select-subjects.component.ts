@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { StudentService } from '@core/services/student.service';
 import { SubjectsService } from '@core/services/subjects.service';
-import { IModal, ISelectSubjectModal } from 'src/app/models/IModal';
+import { ISelectSubjectModal } from 'src/app/models/IModal';
+import { IPinToSubject } from 'src/app/models/IStudentSubject';
 import { ISubject } from 'src/app/models/ISubject';
 
 @Component({
@@ -11,32 +13,24 @@ import { ISubject } from 'src/app/models/ISubject';
 })
 export class SelectSubjectComponent {
   subjects: ISubject[];
+  subject: string = '';
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ISelectSubjectModal,
-    subjectService: SubjectsService
+    subjectService: SubjectsService,
+    private studentService: StudentService,
   ) {
     subjectService.getAllSubjects({}).subscribe((res) => {
       if (res.value) this.subjects = res.value;
     });
   }
-  //   constructor(
-  //     // private router: Router,
-  //     // private route: ActivatedRoute,
-  //     // private userService: UserService,
-  //     // private studentService: StudentService,
-  //     // private dialog: MatDialog,
-  //     subjectService: SubjectsService
-  //   ) {
-  //     // studentService.getAllStudents().subscribe((res) => {
-  //     //   if (res?.value) this.students = res.value;
-  //     // });
-
-  //     subjectService.getAllSubjects({}).subscribe((res) => {
-  //       if (res.value) this.subjects = res.value;
-  //     });
-  //   }
 
   public confirm() {
-
+    const pinStudent: IPinToSubject = {
+        email: this.data.userEmail,
+        subjectId: this.subject,
+    }
+    
+    this.studentService.pinStudentToSubject(pinStudent).subscribe();
   }
 }
