@@ -1,0 +1,11 @@
+<div class="question">
+  <h1>{{question.title}}</h1>
+  <p>{{question.text}}</p>
+</div>
+<div class="answers" *ngFor="let answer of question.questions">
+    <input [value]="answer.text" (change)="OnItemChange($event)" type="radio" [name]="question.title">
+    <label>{{answer.text}}</label>
+
+  <p></p>
+</div>
+<button (click)="RetrieveAnswer()" >Submit</button>
