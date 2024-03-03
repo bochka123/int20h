@@ -7,6 +7,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { InfoSidebar } from './components/info-sidebar/info-sidebar.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 @NgModule({
   imports: [
@@ -16,7 +18,7 @@ import { InfoSidebar } from './components/info-sidebar/info-sidebar.component';
     MatDialogModule,
     MatIconModule,
   ],
-  declarations: [HeaderComponent, ErrorComponent, ModalComponent, InfoSidebar],
-  exports: [HeaderComponent, ErrorComponent, InfoSidebar],
+  declarations: [HeaderComponent, ErrorComponent, ModalComponent, InfoSidebar, NotFoundComponent, UnauthorizedComponent],
+  exports: [HeaderComponent, ErrorComponent, InfoSidebar, NotFoundComponent, UnauthorizedComponent],
 })
 export class SharedModule {}
