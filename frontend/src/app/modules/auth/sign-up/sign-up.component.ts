@@ -101,7 +101,9 @@ export class SignUpComponent {
         private router: Router,
         groupService: GroupsService,
     ) {
-        groupService.getAllGroups({}).subscribe(res => this.groups = res);
+        groupService.getAllGroups({}).subscribe(res => {
+          this.groups = res
+        });
     }
 
     public RoleChanged() {
