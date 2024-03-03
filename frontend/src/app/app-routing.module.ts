@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@core/guards/auth.guard';
+import { NotFoundComponent } from '@shared/components/not-found/not-found.component';
+import { UnauthorizedComponent } from '@shared/components/unauthorized/unauthorized.component';
 
 const routes: Routes = [
     {
@@ -18,10 +20,14 @@ const routes: Routes = [
       loadChildren: () => import('./modules/profile/profile.module').then((m) => m.ProfileModule),
       canActivate: [AuthGuard],
     },
-    //   {
-    //     path: '**',
-    //     component: NotFoundComponent,
-    //   },
+    {
+        path: 'unauthorized',
+        component: UnauthorizedComponent,
+    },
+    {
+        path: '**',
+        component: NotFoundComponent,
+    },
 ];
 
 @NgModule({

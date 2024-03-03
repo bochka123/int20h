@@ -74,8 +74,8 @@ export class AuthService {
     }
 
     hasAnyRole(roles: Role[]): boolean {
-        const userRoles = [Role.admin, Role.teacher, Role.student];
-        return roles.some(role => userRoles.includes(role));
+        const role = this.getUserRole();
+        return roles.includes(role);
     }
 
     private checkAuthentication(): Observable<boolean> {
