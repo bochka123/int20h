@@ -4,11 +4,12 @@ import { TestsRoutingModule } from "./tests-routing.module";
 import { CreatePageComponent } from './create-page/create-page.component';
 import {FormsModule} from "@angular/forms";
 import {CommonModule, NgForOf} from "@angular/common";
+import { CreateTasksPageComponent } from './create-tasks-page/create-tasks-page.component';
 
 
 
 @NgModule({
-    declarations: [TestsPageComponent, CreatePageComponent],
+    declarations: [TestsPageComponent, CreatePageComponent, CreateTasksPageComponent],
   imports: [TestsRoutingModule, FormsModule, NgForOf, CommonModule],
 })
 

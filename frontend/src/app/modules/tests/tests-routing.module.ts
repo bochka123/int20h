@@ -18,6 +18,12 @@ const routes: Routes = [
     component: CreatePageComponent,
     // canActivate: [AuthGuard, RoleGuard],
     // data: {roles: [Role.teacher]}
+  },
+  {
+    path: 'test/:id',
+    component: CreatePageComponent,
+    // canActivate: [AuthGuard, RoleGuard],
+    // data: {roles: [Role.teacher]}
   }
 ];
 
