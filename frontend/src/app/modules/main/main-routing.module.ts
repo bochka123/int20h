@@ -28,6 +28,12 @@ const routes: Routes = [
         loadChildren: () => import('../groups/groups.module').then((m) => m.GroupsModule),
         canActivate: [AuthGuard],
       },
+      {
+        path: 'tests',
+        pathMatch: 'prefix',
+        loadChildren: () => import('../tests/tests.module').then((m) => m.TestsModule),
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];

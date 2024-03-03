@@ -6,7 +6,8 @@ namespace Int20h.DAL.Entities
     {
         public User User { get; set; }
         public Guid UserId { get; set; }
-        public ICollection<Group> MentorGroups { get; set; }
+		public bool IsVerified { get; set; }
+		public ICollection<Group> MentorGroups { get; set; }
         public ICollection<Subject> Subjects { get; set; }
     }
 }
