@@ -1,0 +1,59 @@
+.create-tasks-container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.question-container {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.question-container h3 {
+  margin-top: 0;
+}
+
+.question-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.question-container input[type="text"],
+.question-container textarea,
+.question-container input[type="number"] {
+  width: calc(100% - 20px);
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.option-container {
+  margin-top: 10px;
+}
+
+.option-container label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.option-container input[type="text"],
+.option-container input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

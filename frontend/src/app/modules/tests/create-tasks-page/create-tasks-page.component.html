@@ -1,1 +1,20 @@
-<p>create-tasks-page works!</p>
+<div class="create-tasks-container">
+  <button (click)="addQuestion()">Add Question</button>
+  <div *ngFor="let question of questions; let i = index" class="question-container">
+    <h3>Question {{i + 1}}</h3>
+    <label>Title:</label>
+    <input type="text" [(ngModel)]="question.title">
+    <label>Question Text:</label>
+    <textarea [(ngModel)]="question.text"></textarea>
+    <label>Cost:</label>
+    <input type="number" [(ngModel)]="question.cost">
+    <button (click)="addOption(i)">Add Answer Option</button>
+    <div *ngFor="let option of question.questionOptions; let j = index" class="option-container">
+      <label>Answer Option {{j + 1}}:</label>
+      <input type="text" [(ngModel)]="option.text">
+      <label>Correct Answer:</label>
+      <input type="checkbox" [(ngModel)]="option.isCorrect">
+    </div>
+  </div>
+  <button (click)="createTest()">Create Test</button>
+</div>
